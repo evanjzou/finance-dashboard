@@ -1,5 +1,11 @@
 <!--The whole content below can be removed with the new code.-->
-<h1>Testing JSON conversion</h1>
-<div>The symbol is {{symbol}}</div>
+<h1>Stock Information</h1>
+<!--div>The symbol is {{symbol}}</div>
 <br/>
-<div>The ask is {{ask}}</div>
+<div>The ask is {{ask}}</div-->
+<ol>
+        <li *ngFor="let company of company_info" >
+            {{company.symbol}} || 50-day moving average: {{company.mavg_50}} || 200-day moving average: {{company.mavg_200}}
+        </li>
+        <!--li>{{company_info[0].symbol}}</li -->
+</ol>
