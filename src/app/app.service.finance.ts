@@ -1,3 +1,7 @@
+/*DEPRECATED-- refer to service/finance_service
+ *
+*/
+
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';

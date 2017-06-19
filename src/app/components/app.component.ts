@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 //import { FinanceService }  from './app.service.finance';
-import { FinanceService, QuoteResult } from './service/finance_service';
+import { FinanceService, QuoteResult } from '../service/finance_service';
 import { OnInit } from '@angular/core';
-import { companies } from './constants'
+import { companies } from '../constants'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  templateUrl: '../templates/app.component.html',
+  styleUrls: ['../styles/app.component.css'],
   providers: [FinanceService]
 })
 export class AppComponent implements OnInit {
