@@ -1,7 +1,7 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { QueryRes } from '../app.component';
+import { QueryRes } from '../components/app.component';
 
 @Injectable ()
 export class FinanceService {
@@ -70,7 +70,8 @@ export class FinanceService {
             mavg_50: quote.FiftydayMovingAverage,
             mavg_100: 0, //Will be changed
             mavg_200: quote.TwoHundreddayMovingAverage,
-            daily_range: 0 //Will be changed
+            daily_range: 0, //Will be changed
+            name: quote.Name
         }
     }
 }
@@ -83,5 +84,6 @@ export class QuoteResult {
     mavg_50: number;
     mavg_100: number;
     mavg_200: number;
-    daily_range: number
+    daily_range: number;
+    name: string;
 }

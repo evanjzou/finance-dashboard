@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>50 Day Moving Average</th>
+        <th>200 Day Moving Average</th>
+    </tr>
+    <tr *ngFor="let company of companies">
+        <td>{{company.symbol}}</td>
+        <td>{{company.name}}</td>
+        <td>{{company.mavg_50}}</td>
+        <td>{{company.mavg_200}}</td>
+    </tr>
+</table>

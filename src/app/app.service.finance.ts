@@ -5,7 +5,7 @@
 import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import { QueryRes } from './app.component';
+import { QueryRes } from './components/app.component';
 
 @Injectable ()
 export class FinanceService {

@@ -3,9 +3,9 @@
 <!--div>The symbol is {{symbol}}</div>
 <br/>
 <div>The ask is {{ask}}</div-->
-<ol>
+<!--ol>
         <li *ngFor="let company of company_info" >
             {{company.symbol}} || 50-day moving average: {{company.mavg_50}} || 200-day moving average: {{company.mavg_200}}
         </li>
-        <!--li>{{company_info[0].symbol}}</li -->
-</ol>
+</ol-->
+<data-table [companies]="company_info"></data-table>
