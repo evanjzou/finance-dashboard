@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 //import { FinanceService }  from './app.service.finance';
 import { FinanceService, QuoteResult } from '../service/finance_service';
 import { OnInit } from '@angular/core';
-import { companies } from '../constants'
+import { companies } from '../constants';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +34,8 @@ export class AppComponent implements OnInit {
     this.company_info = quote_res;
     //alert(this.company_info[0].symbol);
   }
+
+
 
 }
 
