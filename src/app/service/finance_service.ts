@@ -71,18 +71,19 @@ export class FinanceService {
             mavg_100: 0, //Will be changed
             mavg_200: quote.TwoHundreddayMovingAverage,
             name: quote.Name,
-            open_price: 0, //tbc
-            close_price: 0, //tbc
-            daily_high: 0, //to be changed
-            daily_low: 0, //tbc
-            daily_range: 0 //tbc
-
+            open_price: quote.Open, 
+            close_price: quote.LastTradePriceOnly,
+            daily_high: quote.DaysHigh,
+            daily_low: quote.DaysLow, 
+            daily_range: (quote.DaysHigh == null || quote.DaysLow == null) ? 
+                -1 : Math.abs(quote.DaysHigh - quote.DaysLow), 
+            last_updated: quote.LastTradeDate 
         }
     }
 }
 
-/*Data from a single company. Exported data from this 
- *service is in this format.
+/**Data from a single company. Exported data from this 
+ * service is in this format.
  */
 export class QuoteResult {
     symbol: String;
@@ -95,4 +96,5 @@ export class QuoteResult {
     close_price: number;
     daily_high: number;
     daily_low: number;
+    last_updated: string;
 }

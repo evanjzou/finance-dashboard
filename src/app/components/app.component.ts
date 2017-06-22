@@ -36,3 +36,11 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+
+//DEPRECATED**
+export class QueryRes {
+  symbol: String;
+  ask: number;
+
+}
