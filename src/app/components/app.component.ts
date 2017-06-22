@@ -36,9 +36,3 @@ export class AppComponent implements OnInit {
   }
 
 }
-
-export class QueryRes {
-  symbol: String;
-  ask: number;
-
-}

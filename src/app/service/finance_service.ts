@@ -70,8 +70,13 @@ export class FinanceService {
             mavg_50: quote.FiftydayMovingAverage,
             mavg_100: 0, //Will be changed
             mavg_200: quote.TwoHundreddayMovingAverage,
-            daily_range: 0, //Will be changed
-            name: quote.Name
+            name: quote.Name,
+            open_price: 0, //tbc
+            close_price: 0, //tbc
+            daily_high: 0, //to be changed
+            daily_low: 0, //tbc
+            daily_range: 0 //tbc
+
         }
     }
 }
@@ -86,4 +91,8 @@ export class QuoteResult {
     mavg_200: number;
     daily_range: number;
     name: string;
+    open_price: number;
+    close_price: number;
+    daily_high: number;
+    daily_low: number;
 }
