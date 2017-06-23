@@ -10,16 +10,24 @@ import { FinanceService } from './service/finance_service';
 import { Tabs } from './components/tabs';
 import { Tab } from './components/tab';
 
+import { BasicChart } from './components/basic_chart';
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
     DataTable,
     Tabs,
-    Tab
+    Tab,
+    BasicChart
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers:  [FinanceService],
   bootstrap: [AppComponent]
