@@ -8,5 +8,13 @@
             {{company.symbol}} || 50-day moving average: {{company.mavg_50}} || 200-day moving average: {{company.mavg_200}}
         </li>
 </ol-->
-<data-table [companies]="company_info"></data-table>
-<div id="chartContainer"></div>
+<!--data-table [companies]="company_info"></data-table>
+<div id="chartContainer"></div-->
+<tabs>
+    <tab [tabTitle]="'Table'">
+        <data-table [companies]="company_info"></data-table>
+    </tab>
+    <tab tabTitle="Charts">
+        Not yet implemented
+    </tab>
+</tabs>

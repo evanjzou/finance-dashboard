@@ -7,10 +7,15 @@ import { DataTable } from './components/app.datatable';
 
 import { FinanceService } from './service/finance_service';
 
+import { Tabs } from './components/tabs';
+import { Tab } from './components/tab';
+
 @NgModule({
   declarations: [
     AppComponent,
-    DataTable
+    DataTable,
+    Tabs,
+    Tab
   ],
   imports: [
     BrowserModule,
