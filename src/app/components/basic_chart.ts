@@ -24,5 +24,21 @@ export class BasicChart {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
   autoScale = true;
-  data = [];
+  data = this.generateData();
+
+  //Generate random placeholder data
+  generateData() {
+    let data = [];
+    let base = 1950;
+    for (let i = 0; i < 61; i++) {
+      data[i] = {
+        "name" : (base + i).toString(),
+        "value" : Math.random() * 1000
+      }
+    }
+    return [{
+      "name": "test",
+      "series" : data
+    }]
+  }
 }
