@@ -9,9 +9,9 @@
         <th>Last Updated</th>
         <th>Daily Range</th>
         <th>50 Day Moving Average</th>
-        <th></th>
+        <th></th> <!-- Just added -->
         <th>200 Day Moving Average</th>
-        <th></th>
+        <th></th> <!-- Just added -->
     </tr>
     <tr *ngFor="let company of companies">
         <td>{{company.symbol}}</td>
@@ -23,8 +23,8 @@
         <td>{{company.last_updated}}</td>
         <td>{{company.daily_range == -1 ? "N/A" : company.daily_range}}</td>
         <td>{{company.mavg_50}}</td>
-        <td></td>
+        <td></td> <!-- Just added -->
         <td>{{company.mavg_200}}</td>
-        <td></td>
+        <td></td> <!-- Just added -->
     </tr>
 </table>
