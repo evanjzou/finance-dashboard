@@ -2,25 +2,29 @@
     <tr>
         <th>Symbol</th>
         <th>Name</th>
-        <th>Last Updated</th>
         <th>Open</th>
-        <th>Close*</th>
         <th>Daily High</th>
         <th>Daily Low</th>
+        <th>Close*</th>
+        <th>Last Updated</th>
         <th>Daily Range</th>
         <th>50 Day Moving Average</th>
+        <th></th>
         <th>200 Day Moving Average</th>
+        <th></th>
     </tr>
     <tr *ngFor="let company of companies">
         <td>{{company.symbol}}</td>
         <td>{{company.name}}</td>
-        <td>{{company.last_updated}}</td>
         <td>{{company.open_price == null ? "N/A" : company.open_price}}</td>
-        <td>{{company.close_price == null ? "N/A" : company.close_price}}</td>
         <td>{{company.daily_high == null ? "N/A" : company.daily_high}}</td>
         <td>{{company.daily_low == null ? "N/A" : company.daily_low}}</td>
+        <td>{{company.close_price == null ? "N/A" : company.close_price}}</td>
+        <td>{{company.last_updated}}</td>
         <td>{{company.daily_range == -1 ? "N/A" : company.daily_range}}</td>
         <td>{{company.mavg_50}}</td>
+        <td></td>
         <td>{{company.mavg_200}}</td>
+        <td></td>
     </tr>
 </table>
