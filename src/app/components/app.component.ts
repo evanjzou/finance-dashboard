@@ -3,20 +3,22 @@ import { Component } from '@angular/core';
 import { FinanceService, QuoteResult } from '../service/finance_service';
 import { OnInit } from '@angular/core';
 import { companies } from '../constants';
+import { HistoricalDataService } from '../service/historical_data_factory';
 
 @Component({
   selector: 'app-root',
   templateUrl: '../templates/app.component.html',
   styleUrls: ['../styles/app.component.css'],
-  providers: [FinanceService]
+  providers: [FinanceService, HistoricalDataService]
 })
 export class AppComponent implements OnInit {
   
   private symbol : String;
   private ask : number;
   private company_info : QuoteResult[];
+  private company_histories;
 
-  constructor (private financeService: FinanceService) { }
+  constructor (private financeService: FinanceService, private historicalDataService: HistoricalDataService) { }
 
   /*ngOnInit() : void {
     this.financeService.getJson().then(obj => this.setVals(obj.symbol, obj.ask));

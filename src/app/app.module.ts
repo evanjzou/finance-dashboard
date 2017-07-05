@@ -15,13 +15,16 @@ import { BasicChart } from './components/basic_chart';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HistoricalDataComponent } from './components/historical_data';
+
 @NgModule({
   declarations: [
     AppComponent,
     DataTable,
     Tabs,
     Tab,
-    BasicChart
+    BasicChart,
+    HistoricalDataComponent
   ],
   imports: [
     BrowserModule,
