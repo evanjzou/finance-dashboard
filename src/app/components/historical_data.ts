@@ -23,8 +23,11 @@ export class HistoricalDataComponent implements OnInit {
           err => {throw 'FetchError'},
           () => {
             console.log("PULL SUCCESS");
-            this.counter++;
+            /* this.counter++;
             if (this.counter == companies.length) this.volatilityData.sort( (a, b) => {
+              return b.range - a.range;
+            }); */
+            this.volatilityData.sort( (a, b) => {
               return b.range - a.range;
             });
           }
