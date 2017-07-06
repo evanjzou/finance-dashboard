@@ -13,7 +13,7 @@ export class HistoricalDataComponent implements OnInit {
     
     @Input() private company_data : CompanyData[];
     private volatilityData : VolatilityData[] = [];
-    private counter = 0;
+    //private counter = 0;
 
     ngOnInit() : void {
       //TODO
