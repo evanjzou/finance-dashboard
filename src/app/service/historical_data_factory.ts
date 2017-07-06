@@ -22,7 +22,7 @@ export class HistoricalDataService {
 
     constructor(private http : Http) { }
 
-    //Incomplete
+    //Deprecated
     /*get_history() {
         this.http.get(this.url).toPromise()
             .then(response => formatData(response))
