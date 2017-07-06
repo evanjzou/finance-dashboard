@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FinanceService, QuoteResult } from '../service/finance_service';
 import { OnInit } from '@angular/core';
 import { companies } from '../constants';
-import { HistoricalDataService } from '../service/historical_data_factory';
+import { HistoricalDataService, CompanyData } from '../service/historical_data_factory';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +30,8 @@ export class AppComponent implements OnInit {
   } */
   ngOnInit() : void {
     this.financeService.get_quotes(companies).then(response => this.set_company_info(response));
+    this.setSeries(this.historicalDataService.getStockData());
+
   }
 
   set_company_info (quote_res) : void {
@@ -37,7 +39,9 @@ export class AppComponent implements OnInit {
     //alert(this.company_info[0].symbol);
   }
 
-
+  setSeries (data : CompanyData[]) : void {
+    this.company_histories = data;
+  }
 
 }
 
