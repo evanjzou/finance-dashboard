@@ -1,8 +1,8 @@
-<table>
+<!--table>
     <tr>
         <th>Company</th>
-        <th></th>
-        <th></th>
+        <th>{{this.company_data != null}}</th>
+        <th>{{this.volatilityData != []}}</th>
         <th></th>
         <th></th>
         <th></th>
@@ -15,4 +15,8 @@
         <td></td>
         <td></td>
     </tr>
-</table>
+</table-->
+<h1>Volatility</h1>
+<ol>
+    <li *ngFor="let company of volatilityData">{{company.symbol}} || Range: {{company.range}}</li>
+</ol>
