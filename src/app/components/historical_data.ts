@@ -13,7 +13,6 @@ export class HistoricalDataComponent implements OnInit {
     
     @Input() private company_data : CompanyData[];
     private volatilityData : VolatilityData[] = [];
-    //private counter = 0;
 
     ngOnInit() : void {
       //TODO
@@ -24,10 +23,6 @@ export class HistoricalDataComponent implements OnInit {
           err => {throw 'FetchError'},
           () => {
             console.log("PULL SUCCESS");
-            /* this.counter++;
-            if (this.counter == companies.length) this.volatilityData.sort( (a, b) => {
-              return b.range - a.range;
-            }); */
             this.volatilityData.sort( (a, b) => {
               //return b.range - a.range;
               return b.volatility - a.volatility;
@@ -55,10 +50,6 @@ export class HistoricalDataComponent implements OnInit {
           res["Time Series (Daily)"][dateString]["3. low"]),
           volatility: 0 //Unused
       }); 
-      /*this.volatilityData.push({
-        symbol: "",
-        range: 0,
-      }); */
     }
 
     //Alternate calculation of volatility

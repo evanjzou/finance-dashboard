@@ -7,8 +7,6 @@ import { companies } from '../constants';
 
 @Injectable()
 export class HistoricalDataService {
-    private url = "https://www.alphavantage.co/query?function=SMA&symbol=MSFT&interval=daily&time_period=5&series_type=close&apikey=U8DGBF2PDMXR2FZT";
-
     //API key = U8DGBF2PDMXR2FZT
 
     //SMA data
@@ -22,34 +20,17 @@ export class HistoricalDataService {
 
     constructor(private http : Http) { }
 
-    //Deprecated
-    /*get_history() {
-        this.http.get(this.url).toPromise()
-            .then(response => formatData(response))
-            .catch(err => alert("An error occured while fetching history"));
-    } 
-
-    getSMAHistory(company, period) {
-        this.http.get(this.smaUrl + company + this.smaUrlMid + period.toString() + this.smaUrlTail).toPromise()
-            .then(response => this.formatSMAData(response))
-            .catch(err => alert("An error occured while fetching historical sma data"));
-    }
-    
-    formatSMAData(response) {
-        let data = response.json()["Technical Analysis: SMA"];
-    } */
-
-    getSMA (company: string, period : number) : Observable<any> {
+    private getSMA (company: string, period : number) : Observable<any> {
         return this.http.get(this.smaUrl + company + this.smaUrlMid + period.toString() + this.smaUrlTail)
             .map(res => res.json());
     }
 
-    getDailySeries(company: string) : Observable<any> {
+    private getDailySeries(company: string) : Observable<any> {
         return this.http.get(this.dailySeriesUrlHead + company + this.dailySeriesUrlTail)
             .map(res => res.json());
     }
 
-    getCompanyData(company) : CompanyData {
+    private getCompanyData(company) : CompanyData {
         return {
             symbol: company,
             dailySeriesData: this.getDailySeries(company),
@@ -59,7 +40,11 @@ export class HistoricalDataService {
         }
     }
 
-    getStockData() : CompanyData[] {
+    /**
+     * Returns an array of CompanyData representing companies 
+     * defined in constants
+     */
+    public getStockData() : CompanyData[] {
         let data = [];
         for (let company of companies) {
             data.push(this.getCompanyData(company));
@@ -69,6 +54,10 @@ export class HistoricalDataService {
 
 }
 
+/**
+ * Represents a collection of data representing the 50 day SMA, 
+ * 100 day SMA, 200 day SMA, and daily series of a single company
+ */
 export interface CompanyData {
     symbol: string;
     dailySeriesData: Observable<any>;

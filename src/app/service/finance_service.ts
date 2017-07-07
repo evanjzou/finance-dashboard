@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { QueryRes } from '../components/app.component';
 
+/**
+ * Stock quote data factory.
+ */
 @Injectable ()
 export class FinanceService {
     
@@ -11,26 +14,9 @@ export class FinanceService {
     private url_tail = "&env=store://datatables.org/alltableswithkeys&format=json";
 
     constructor (private http : Http) {}
-    /*
-    //DEPRECATED**Make YQL API call from query string
-    getJson () : Promise<QueryRes> {
-        return this.http.get(this.url).toPromise()
-        .then(response => 
-            this.process(response))
-        .catch(error => console.log("Problem"));
-    }
-
-    //DEPRECATED**Convert results into useable format
-    process(res) : QueryRes {
-        let results = res.json().query.results.quote;
-        return {
-            symbol: results.symbol,
-            ask: results.Ask
-        }
-    } */
 
     //Form query component from company tickers
-    form_query_specs (companies) : String {
+    private form_query_specs (companies) : String {
         let base = "(";
         for (let _i = 0; _i < companies.length; _i++) {
             if (_i == companies.length - 1) {
@@ -44,27 +30,28 @@ export class FinanceService {
     }
 
     //Make full query url
-    make_query (companies) : string {
+    private make_query (companies) : string {
         return this.base_url + this.form_query_specs(companies) + this.url_tail;
     }
 
-    //Get quote via api call
+    /**
+     * Get stock quotes from yahoo finance via REST API call
+     * @param companies {Array<string>} list of stock tickers
+     */
     get_quotes (companies) : Promise<QuoteResult[]> {
-
-        //alert(this.make_query(companies));
         return this.http.get(this.make_query(companies)).toPromise()
             .then(response => this.make_quote_result(response))
             .catch(err => alert("Problem occured while fetching financial data"));
     }
 
     //Converts http response to array of quote results
-    make_quote_result (res) : QuoteResult[] {
+    private make_quote_result (res) : QuoteResult[] {
         let quotes = res.json().query.results.quote;
         return quotes.map(entry => this.process_quote(entry))
     }
 
     //Converts yql quote to QuoteResult object
-    process_quote (quote) : QuoteResult {
+    private process_quote (quote) : QuoteResult {
         return {
             symbol: quote.symbol,
             mavg_50: quote.FiftydayMovingAverage,
