@@ -32,7 +32,7 @@ export class HistoricalDataComponent implements OnInit {
       }
     }
 
-    //Used to subscribe to time series Observable **UNUSED
+    /**@deprecated */
     private generateVolatilityData(res) : void {
       let date = new Date();
       //get yesterday
@@ -71,7 +71,7 @@ export class HistoricalDataComponent implements OnInit {
         //let data = res["Time Series (Daily)"][dateString]["4. close"];
         if (res["Time Series (Daily)"].hasOwnProperty(dateString)) 
           vals.push(res["Time Series (Daily)"][dateString]["4. close"]);
-        else num++;
+        else num++; //Ignore weekends or days with no data
       }
 
       let avg = this.avgArray(vals);
