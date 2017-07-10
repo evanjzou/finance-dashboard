@@ -16,6 +16,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HistoricalDataComponent } from './components/historical_data';
+import { HistoricalDataService } from './service/historical_data_factory';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { HistoricalDataComponent } from './components/historical_data';
     NgxChartsModule,
     BrowserAnimationsModule
   ],
-  providers:  [FinanceService],
+  providers:  [FinanceService, HistoricalDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
