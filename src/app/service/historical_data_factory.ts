@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/publishLast';
 import { companies } from '../constants';
 
 @Injectable()
@@ -22,12 +23,16 @@ export class HistoricalDataService {
 
     private getSMA (company: string, period : number) : Observable<any> {
         return this.http.get(this.smaUrl + company + this.smaUrlMid + period.toString() + this.smaUrlTail)
-            .map(res => res.json());
+            .map(res => res.json())
+            .publishLast()
+            .refCount();
     }
 
     private getDailySeries(company: string) : Observable<any> {
         return this.http.get(this.dailySeriesUrlHead + company + this.dailySeriesUrlTail)
-            .map(res => res.json());
+            .map(res => res.json())
+            .publishLast()
+            .refCount();
     }
 
     private getCompanyData(company) : CompanyData {
