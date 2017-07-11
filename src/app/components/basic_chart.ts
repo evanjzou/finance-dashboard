@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
@@ -25,6 +25,8 @@ export class BasicChart {
   };
   autoScale = true;
   data = this.generateData();
+
+  //Company data from input
 
   //Generate random placeholder data
   generateData() {
