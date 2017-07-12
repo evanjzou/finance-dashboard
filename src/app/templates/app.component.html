@@ -15,7 +15,7 @@
         <data-table [companies]="company_info"></data-table>
     </tab>
     <tab tabTitle="Charts">
-        <basic-chart></basic-chart>
+        <basic-chart [companyData]="company_histories"></basic-chart>
     </tab>
     <tab tabTitle="History">
         <historical-data [company_data]="company_histories"></historical-data>
