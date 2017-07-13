@@ -43,7 +43,7 @@ export class HistoricalDataComponent implements OnInit {
       let year = date.getFullYear().toString();
       let month = date.getMonth().toString();
       dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
-      month = parseInt(month) < 10  ? "0" + month : month;
+      month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
       let dateString = year + "-" + month + "-" + dayNum;
 
       this.volatilityData.push({
