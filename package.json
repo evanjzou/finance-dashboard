@@ -1,14 +1,15 @@
 {
-  "name": "test-angular",
+  "name": "finance-dashboard",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build"
   },
   "private": true,
   "dependencies": {
@@ -24,8 +25,11 @@
     "@swimlane/ngx-charts": "^5.3.1",
     "core-js": "^2.4.1",
     "d3": "^4.9.1",
+    "express": "^4.15.3",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "@angular/cli": "1.1.1",
+    "@angular/compiler-cli": "^4.2.4"
   },
   "devDependencies": {
     "@angular/cli": "1.1.1",
@@ -47,5 +51,9 @@
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
     "typescript": "~2.3.3"
+  },
+  "engines" : {
+    "node" : "6.11.0",
+    "npm" : "3.10.10"
   }
 }
