@@ -13,6 +13,7 @@ export class HistoricalDataComponent implements OnInit {
     
     @Input() private company_data : CompanyData[];
     private volatilityData : VolatilityData[] = [];
+    private volatilityByRange :  VolatilityData[];
 
     ngOnInit() : void {
       //TODO
@@ -30,6 +31,7 @@ export class HistoricalDataComponent implements OnInit {
           }
         );
       }
+      this.volatilityByRange = this.volatilityData.sort((a,b) => {return b.range - a.range;});
     }
 
     /**@deprecated */
