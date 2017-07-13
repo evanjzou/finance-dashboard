@@ -1,3 +1,21 @@
 table, tr, th, td {
     border: 1px solid black;
 }
+
+.range-table {
+    position: absolute;
+}
+
+.vol-table {
+    position: relative;
+}
+
+.comp-table {
+    width: 38%;
+    display: inline-block;
+}
+
+.table-wrap {
+    position: absolute;
+    width: 100%;
+}

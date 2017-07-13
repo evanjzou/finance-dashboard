@@ -22,26 +22,32 @@
         {{company.symbol}} || Volatility: {{company.volatility.toFixed(2)}} || Range: {{company.range.toFixed(2)}}
     </li>
 </ol-->
-<h3>Companies by Volatility (Descending)</h3>
-<table>
-    <tr>
-        <th>Company</th>
-        <th>Volatility</th>
-    </tr>
-    <tr *ngFor="let company of volatilityData">
-        <td>{{company.symbol}}</td>
-        <td>Volatility: {{company.volatility.toFixed(2)}}</td>
-    </tr>
-</table>
-<br />
-<h3>Companies by Average Range (Descending)</h3>
-<table>
-    <tr>
-        <th>Company</th>
-        <th>Range</th>
-    </tr>
-    <tr *ngFor="let company of volatilityByRange">
-        <td>{{company.symbol}}</td>
-        <td>Range: {{company.range.toFixed(2)}}</td>
-    </tr>
-</table>
+<div class="table-wrap">
+    <div class = "vol-table comp-table">
+        <h3>Companies by Volatility (Descending)</h3>
+        <table >
+            <tr>
+                <th>Company</th>
+                <th>Volatility</th>
+            </tr>
+            <tr *ngFor="let company of volatilityData">
+                <td>{{company.symbol}}</td>
+                <td>Volatility: {{company.volatility.toFixed(2)}}</td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div class = "range-table comp-table">
+        <h3>Companies by Average Range (Descending)</h3>
+        <table >
+            <tr>
+                <th>Company</th>
+                <th>Range</th>
+            </tr>
+            <tr *ngFor="let company of volatilityByRange">
+                <td>{{company.symbol}}</td>
+                <td>Range: {{company.range.toFixed(2)}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
