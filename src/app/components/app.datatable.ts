@@ -20,6 +20,9 @@ export class DataTable implements OnInit {
     ngOnInit() {
         let date = new Date();
         date = new Date(date.getTime() - 86400000);
+        while (date.getDay() == 0 || date.getDay() == 6) {
+            date = new Date(date.getTime() - 86400000);
+        }
         let dayNum = date.getDate().toString();
         let year = date.getFullYear().toString();
         let month = date.getMonth().toString();
