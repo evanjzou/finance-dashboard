@@ -1,4 +1,4 @@
-<table>
+<!--table>
     <tr>
         <th>Symbol</th>
         <th>Name</th>
@@ -9,9 +9,9 @@
         <th>Close*</th>
         <th>Daily Range</th>
         <th>50 Day Moving Average</th>
-        <th>VS. Price</th> <!-- Just added -->
+        <th>VS. Price</th> 
         <th>200 Day Moving Average</th>
-        <th>VS. Price</th> <!-- Just added -->
+        <th>VS. Price</th> 
     </tr>
     <tr *ngFor="let company of companies">
         <td>{{company.symbol}}</td>
@@ -23,8 +23,22 @@
         <td>{{company.close_price == null ? "N/A" : company.close_price}}</td>
         <td>{{company.daily_range == -1 ? "N/A" : (company.daily_range).toFixed(2)}}</td>
         <td>{{company.mavg_50}}</td>
-        <td>{{company.close_price == null ? "N/A" : (company.mavg_50 - company.close_price).toFixed(2)}}</td> <!-- Just added -->
+        <td>{{company.close_price == null ? "N/A" : (company.mavg_50 - company.close_price).toFixed(2)}}</td> 
         <td>{{company.mavg_200}}</td>
-        <td>{{company.close_price == null ? "N/A" : (company.mavg_200 - company.close_price).toFixed(2)}}</td> <!-- Just added -->
+        <td>{{company.close_price == null ? "N/A" : (company.mavg_200 - company.close_price).toFixed(2)}}</td>  
+    </tr>
+</table-->
+<table>
+    <tr>
+        <th>Symbol</th>
+        <th>50 Day Moving Average</th>
+        <th>100 Day Moving Average</th>
+        <th>200 Day Moving Average</th>
+    </tr>
+    <tr *ngFor="let company of keys">
+        <td>{{dispData[company].symbol}}</td>
+        <td>{{dispData[company].mavg_50 == 0 ? "N/A" : dispData[company].mavg_50}}</td>
+        <td>{{dispData[company].mavg_100 == 0 ? "N/A" : dispData[company].mavg_100}}</td>
+        <td>{{dispData[company].mavg_200 == 0 ? "N/A" : dispData[company].mavg_200}}</td>
     </tr>
 </table>
