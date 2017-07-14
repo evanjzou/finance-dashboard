@@ -3,11 +3,17 @@ table, tr, th, td {
 }
 
 .range-table {
-    position: absolute;
+    /* position: absolute; */
+    /* width: 240px; */
+    /* height: 12px; */
+    float: right;
 }
 
 .vol-table {
-    position: relative;
+    /* position: relative; */
+    /* width: 240px; */
+    /* height:123px; */
+    float: left;
 }
 
 .comp-table {
