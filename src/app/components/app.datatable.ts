@@ -79,12 +79,30 @@ export class DataTable implements OnInit {
     }
 
     private set100DayMA(res) : void {
+        while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
+            let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
+            let dayNum = date.getDate().toString();
+            let year = date.getFullYear().toString();
+            let month = date.getMonth().toString();
+            dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
+            month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
+            this.yesterday = year + "-" + month + "-" + dayNum;
+        }
         if (res["Technical Analysis: SMA"][this.yesterday] == undefined) return;
         this.dispData[res["Meta Data"]["1: Symbol"]].mavg_100 = 
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
     }
 
     private set200DayMA(res) : void {
+        while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
+            let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
+            let dayNum = date.getDate().toString();
+            let year = date.getFullYear().toString();
+            let month = date.getMonth().toString();
+            dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
+            month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
+            this.yesterday = year + "-" + month + "-" + dayNum;
+        }
         if (res["Technical Analysis: SMA"][this.yesterday] == undefined) return;
         this.dispData[res["Meta Data"]["1: Symbol"]].mavg_200 = 
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
