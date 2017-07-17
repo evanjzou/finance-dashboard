@@ -17,7 +17,7 @@ export class HistoricalDataService {
 
     //daily price
     readonly dailySeriesUrlHead = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
-    readonly dailySeriesUrlTail = "&apikey=U8DGBF2PDMXR2FZT";
+    readonly dailySeriesUrlTail = "&outputsize=full&apikey=U8DGBF2PDMXR2FZT";
 
     constructor(private http : Http) { }
 

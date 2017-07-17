@@ -57,6 +57,7 @@ export class HistoricalDataComponent implements OnInit {
     //Alternate calculation of volatility
     private stdVolatility(res) : void {
       //TODO
+      //alert("start");
       let num = 30; //Can be changed
       let date = new Date();
       //get yesterday
@@ -80,6 +81,8 @@ export class HistoricalDataComponent implements OnInit {
         else num++; //Ignore weekends or days with no data
       }
 
+      //alert("Complete here");
+      //alert("start");
       let avg = this.avgArray(vals);
       let rangeAvg = this.avgArray(ranges);
       this.volatilityData.push( {
@@ -87,7 +90,7 @@ export class HistoricalDataComponent implements OnInit {
         range: rangeAvg, //Unused
         volatility: (this.std(avg, vals))
       });
-
+      //alert("finish");
     }
 
     private avgArray (array) : number {
