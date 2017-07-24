@@ -222,6 +222,7 @@ export class DataTable implements OnInit {
     private generateData(res) : void {
         this.calculateSMAData(res);
         this.setVolumeData(res);
+        this.setPercentChange(res);
     }
 
     private setVolumeData(res) : void {
@@ -230,7 +231,24 @@ export class DataTable implements OnInit {
     } 
 
     private setPercentChange(res) : void {
-        this.dispData[res["Meta Data"]["2. Symbol"]].percentChange5Day = undefined;
+        this.dispData[res["Meta Data"]["2. Symbol"]].percentChange5Day = this.calculate5DayPercentChange(res);
+    }
+
+    private calculate5DayPercentChange(res) : number {
+        let date = this.getDateString(0);
+        date = this.getNextDayBack(res, date);
+        let fiveDaysAgo = date;
+        for (let i = 0; i < 5; i++) {
+            try {
+                fiveDaysAgo = this.getNextDayBack(res, fiveDaysAgo);
+            }
+            catch (err) {
+                return 0;
+            }
+        }
+        return ((res["Time Series (Daily)"][date]["4. close"] - 
+            res["Time Series (Daily)"][fiveDaysAgo]["4. close"]) / 
+                res["Time Series (Daily)"][fiveDaysAgo]["4. close"]) * 100;
     }
 
     private averageVolume(res, days : number) : number {
