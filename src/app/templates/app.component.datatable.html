@@ -47,7 +47,7 @@
         <td>{{dispData[company].mavg_200 == 0 ? "N/A" : dispData[company].mavg_200.toFixed(2)}}</td>
         <td>{{dispData[company].month3Volume == 0 ? "N/A" : dispData[company].month3Volume.toFixed(2)}}</td>
         <td>{{dispData[company].day10Volume == 0 ? "N/A" : dispData[company].day10Volume.toFixed(2)}}</td>
-        <td>TODO</td>
+        <td>{{dispData[company].percentChange5Day == 0 ? "N/A" : "" +  dispData[company].percentChange5Day.toFixed(2) + "%"}}</td>
         <!--td>TODO</td-->
     </tr>
 </table>
