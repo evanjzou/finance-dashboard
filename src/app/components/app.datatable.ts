@@ -70,6 +70,7 @@ export class DataTable implements OnInit {
         console.log("Completed");
     }
 
+    /** @deprecated */
     private set50DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -85,6 +86,7 @@ export class DataTable implements OnInit {
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
     }
 
+    /** @deprecated */
     private set100DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -100,6 +102,7 @@ export class DataTable implements OnInit {
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
     }
 
+    /** @deprecated */
     private set200DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -121,7 +124,7 @@ export class DataTable implements OnInit {
     }
 
     //SMA for [days]
-    calculateSMA(res) : StockTableData {
+    private calculateSMA(res) : StockTableData {
         //alert("start");
         let date = new Date();
         date = new Date(date.getTime() - 86400000);
