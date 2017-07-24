@@ -71,3 +71,10 @@ export const companies = [
     'XLNX',
     'XRX'
 ]
+
+export const indices = [ 
+    'XLK',
+    'XLF',
+    'XLE',
+    'XLV'
+]

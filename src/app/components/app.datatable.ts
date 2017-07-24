@@ -12,8 +12,10 @@ import { companies } from '../constants';
 export class DataTable implements OnInit {
     //@Input() companies: QuoteResult[];
     @Input() companyData: CompanyData[];
+    @Input() indexData: CompanyData[];
 
     dispData = {};
+    indices = {};
     private yesterday : string; 
     private keys = [];
     
@@ -31,11 +33,15 @@ export class DataTable implements OnInit {
         this.yesterday = year + "-" + month + "-" + dayNum; */
         for (let i = 0; i < companies.length; i++) {
             this.dispData[companies[i]] = {
-                symbol : companies[i],
+                symbol: companies[i],
                 mavg_50 : 0,
                 mavg_100 : 0,
-                mavg_200 : 0
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0
             }
+        
             /*
             this.keys.push(companies[i]);
             this.companyData[i].mavg50Data.subscribe(
@@ -55,7 +61,7 @@ export class DataTable implements OnInit {
             ); */
             this.keys.push(companies[i]);
             this.companyData[i].dailySeriesData.subscribe(
-                this.calculateSMAData.bind(this),
+                this.generateData.bind(this),
                 this.historyServiceErrorHandle,
                 this.completionHandler
             )
@@ -70,6 +76,7 @@ export class DataTable implements OnInit {
         console.log("Completed");
     }
 
+    /** @deprecated */
     private set50DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -85,6 +92,7 @@ export class DataTable implements OnInit {
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
     }
 
+    /** @deprecated */
     private set100DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -100,6 +108,7 @@ export class DataTable implements OnInit {
             res["Technical Analysis: SMA"][this.yesterday]["SMA"];
     }
 
+    /** @deprecated */
     private set200DayMA(res) : void {
         while (!res["Technical Analysis: SMA"].hasOwnProperty(this.yesterday)) {
             let date = (new Date(new Date(this.yesterday).getTime() - 86400000));
@@ -121,18 +130,18 @@ export class DataTable implements OnInit {
     }
 
     //SMA for [days]
-    calculateSMA(res) : StockTableData {
+    private calculateSMA(res) : StockTableData {
         //alert("start");
-        let date = new Date();
+        /*let date = new Date();
         date = new Date(date.getTime() - 86400000);
         let dayNum = date.getDate().toString();
         let year = date.getFullYear().toString();
         let month = date.getMonth().toString();
         dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
-        month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
-        let dateString = year + "-" + month + "-" + dayNum;
+        month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month; */
+        let dateString = this.getDateString(1); // year + "-" + month + "-" + dayNum; 
         //alert("start");
-        while (!res["Time Series (Daily)"].hasOwnProperty(dateString)) {
+        /*while (!res["Time Series (Daily)"].hasOwnProperty(dateString)) {
             //alert("while 1");
             date = new Date(date.getTime() - 86400000);
             dayNum = date.getDate().toString();
@@ -141,14 +150,18 @@ export class DataTable implements OnInit {
             dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
             month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
             dateString = year + "-" + month + "-" + dayNum;
-        }
+        } */
+        dateString = this.getNextDayBack(res, dateString);
         //alert("finish");
         //date is set to last day with data
         let data = {
             symbol: res["Meta Data"]["2. Symbol"],
             mavg_50 : 0,
             mavg_100 : 0,
-            mavg_200 : 0
+            mavg_200 : 0,
+            month3Volume : 0,
+            day10Volume : 0,
+            percentChange5Day : 0
         }
         let daysCounted = 0; //Represents next day to be counted with initial = 0 and total counted
         let total = 0.0;
@@ -159,7 +172,7 @@ export class DataTable implements OnInit {
             daysCounted++;
             //alert(daysCounted);
             //Find next date backwards
-            date = new Date(date.getTime() - 86400000);
+            /*date = new Date(date.getTime() - 86400000);
             dayNum = date.getDate().toString();
             year = date.getFullYear().toString();
             month = date.getMonth().toString();
@@ -167,9 +180,9 @@ export class DataTable implements OnInit {
             month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
             dateString = year + "-" + month + "-" + dayNum;
             //alert("start");
-            let timeout = 0; //In case 50+ days not possible
+            let timeout = 0; //In case 50+ days not possible */
             try {
-                while (!res["Time Series (Daily)"].hasOwnProperty(dateString)) {
+                /*while (!res["Time Series (Daily)"].hasOwnProperty(dateString)) {
                     if (timeout > 200) throw 'timeout';
                     //alert("while 3");
                     date = new Date(date.getTime() - 86400000);
@@ -180,7 +193,8 @@ export class DataTable implements OnInit {
                     month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
                     dateString = year + "-" + month + "-" + dayNum;
                     timeout++;
-                }
+                } */
+                dateString = this.getNextDayBack(res, dateString);
             }
             catch (err) {
                 //alert(err);
@@ -204,7 +218,76 @@ export class DataTable implements OnInit {
         return data;
     }
 
+    //Wrapper callback
+    private generateData(res) : void {
+        this.calculateSMAData(res);
+        this.setVolumeData(res);
+    }
 
+    private setVolumeData(res) : void {
+        this.dispData[res["Meta Data"]["2. Symbol"]].month3Volume = this.averageVolume(res, 90);
+        this.dispData[res["Meta Data"]["2. Symbol"]].day10Volume = this.averageVolume(res, 10);
+    } 
+
+    private setPercentChange(res) : void {
+        this.dispData[res["Meta Data"]["2. Symbol"]].percentChange5Day = undefined;
+    }
+
+    private averageVolume(res, days : number) : number {
+        let date = this.getDateString(0);
+        date = this.getNextDayBack(res, date);
+        let totalVolume = 0;
+        for (let i = 0; i < days; i++) {
+            totalVolume += parseFloat(res["Time Series (Daily)"][date]["5. volume"]);
+            try {
+                date = this.getNextDayBack(res, date);
+            }
+            catch(err) {
+                return 0;
+            }
+        }
+        return totalVolume / days;
+    }
+
+    private getNextDayBack(res, current : string) : string {
+        let date = new Date(current);
+        let dayNum = date.getDate().toString();
+        let year = date.getFullYear().toString();
+        let month = date.getMonth().toString();
+        dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
+        month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
+        let dateString = year + "-" + month + "-" + dayNum;
+        let timeout = 0; //In case 50+ days not possible
+        while (!res["Time Series (Daily)"].hasOwnProperty(dateString)) {
+            if (timeout > 200) throw 'timeout';
+            date = new Date(date.getTime() - 86400000);
+            dayNum = date.getDate().toString();
+            year = date.getFullYear().toString();
+            month = date.getMonth().toString();
+            dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
+            month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
+            dateString = year + "-" + month + "-" + dayNum;
+            timeout++;
+        }
+        return dateString;
+    }
+
+    private getDateString(offset : number)  {
+        let date = new Date((new Date()).getTime() - (offset * 86400000));
+        let dayNum = date.getDate().toString();
+        let year = date.getFullYear().toString();
+        let month = date.getMonth().toString();
+        dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
+        month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
+        let dateString = year + "-" + month + "-" + dayNum;
+        return dateString;
+    }
+
+    private processIndex(res) : void {
+        this.indices[res["Meta Data"]["2. Symbol"]] = {
+            //TBD
+        }
+    }
 }
 
 interface StockTableData {

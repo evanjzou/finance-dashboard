@@ -34,11 +34,20 @@
         <th>50 Day Moving Average</th>
         <th>100 Day Moving Average</th>
         <th>200 Day Moving Average</th>
+        <th>3 Month (90 Day) Volume</th>
+        <th>10 Day Volume</th>
+        <th>% Change (5 Days)</th>
+        <!--th>% Change Index (5 Day)</th -->
+
     </tr>
     <tr *ngFor="let company of keys">
         <td>{{dispData[company].symbol}}</td>
         <td>{{dispData[company].mavg_50 == 0 ? "N/A" : dispData[company].mavg_50.toFixed(2)}}</td>
         <td>{{dispData[company].mavg_100 == 0 ? "N/A" : dispData[company].mavg_100.toFixed(2)}}</td>
         <td>{{dispData[company].mavg_200 == 0 ? "N/A" : dispData[company].mavg_200.toFixed(2)}}</td>
+        <td>{{dispData[company].month3Volume == 0 ? "N/A" : dispData[company].month3Volume.toFixed(2)}}</td>
+        <td>{{dispData[company].day10Volume == 0 ? "N/A" : dispData[company].day10Volume.toFixed(2)}}</td>
+        <td>TODO</td>
+        <!--td>TODO</td-->
     </tr>
 </table>

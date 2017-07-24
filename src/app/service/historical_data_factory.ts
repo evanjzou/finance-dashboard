@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishLast';
-import { companies } from '../constants';
+import { companies, indices } from '../constants';
 
 @Injectable()
 export class HistoricalDataService {
@@ -53,6 +53,18 @@ export class HistoricalDataService {
         let data = [];
         for (let company of companies) {
             data.push(this.getCompanyData(company));
+        }
+        return data;
+    }
+
+    /**
+     * Returns an array of CompanyData representing indices
+     * defined in constants
+     */
+    public getIndexData() : CompanyData[] {
+        let data = [];
+        for (let index of indices) {
+            data.push(this.getCompanyData(index));
         }
         return data;
     }

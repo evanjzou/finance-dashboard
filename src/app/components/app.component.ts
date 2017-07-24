@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   private ask : number;
   private company_info : QuoteResult[];
   private company_histories : CompanyData[];
+  private index_data : CompanyData[];
 
   constructor (private financeService: FinanceService, private historicalDataService: HistoricalDataService) { }
 
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
   ngOnInit() : void {
     //this.financeService.get_quotes(companies).then(response => this.set_company_info(response));
     this.setSeries(this.historicalDataService.getStockData());
+    this.setIndexData(this.historicalDataService.getIndexData());
 
   }
 
@@ -41,6 +43,10 @@ export class AppComponent implements OnInit {
 
   setSeries (data : CompanyData[]) : void {
     this.company_histories = data;
+  }
+
+  setIndexData (data : CompanyData[]) : void {
+    this.index_data = data;
   }
 
 }
