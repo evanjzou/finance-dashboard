@@ -7,7 +7,7 @@ based on consultation with Joe Terranova.
 
 This web application is currently hosted on Heroku:  
 
-[link](mathersonfinancials.herokuapp.com)
+[mathersonfinancials.herokuapp.com](https://mathersonfinancials.herokuapp.com)
 
 ### Local Development
 
@@ -19,7 +19,7 @@ To test the on a local development server, run
 This web application pulls real-time stock information via the AlphaVantage
 API.  
 
-[link](https://www.alphavantage.co/)
+[https://www.alphavantage.co/](https://www.alphavantage.co/)
 
 ## License and Copyright
 
