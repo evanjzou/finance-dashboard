@@ -1,4 +1,6 @@
 table {
+    background-color: whitesmoke;
+
     width: 100%;
     border: 1px solid black;
 }
@@ -11,3 +13,4 @@ td {
     border: 0.5px solid black;
     text-align: center;
 }
+
