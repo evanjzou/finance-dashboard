@@ -11,3 +11,15 @@ td {
     border: 0.5px solid black;
     text-align: center;
 }
+
+.positive-indicator {
+    background-color: green;
+}
+
+/*.neutral-indicator {
+    To be implemented
+}*/ 
+
+/*.negative-indicator {
+    To be implemented
+} */
