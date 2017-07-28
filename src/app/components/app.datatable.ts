@@ -39,7 +39,8 @@ export class DataTable implements OnInit {
                 mavg_200 : 0,
                 month3Volume : 0,
                 day10Volume : 0,
-                percentChange5Day : 0
+                percentChange5Day : 0,
+                currentPrice: 0
             }
         
             /*
@@ -161,7 +162,8 @@ export class DataTable implements OnInit {
             mavg_200 : 0,
             month3Volume : 0,
             day10Volume : 0,
-            percentChange5Day : 0
+            percentChange5Day : 0,
+            currentPrice: 0
         }
         let daysCounted = 0; //Represents next day to be counted with initial = 0 and total counted
         let total = 0.0;
@@ -223,6 +225,7 @@ export class DataTable implements OnInit {
         this.calculateSMAData(res);
         this.setVolumeData(res);
         this.setPercentChange(res);
+        this.setCurrentPrice(res);
     }
 
     private setVolumeData(res) : void {
@@ -306,6 +309,33 @@ export class DataTable implements OnInit {
             //TBD
         }
     }
+
+    private setCurrentPrice(res) : void {
+        let lastRefreshed = res["Meta Data"]["3. Last Refreshed"];
+        this.dispData[res["Meta Data"]["2. Symbol"]].currentPrice = 
+            parseFloat(res["Time Series (Daily)"][lastRefreshed]["4. close"]);
+
+    }
+
+    /**
+     * Returns current price > 50 day moving average > 100 day moving average >
+     * 200 day moving average
+     * @param company
+     */
+    public mavgUpSlope(company : string) : boolean {
+        return this.dispData[company].currentPrice > this.dispData[company].mavg_50 &&
+            this.dispData[company].mavg_50 > this.dispData[company].mavg_100 && 
+                this.dispData[company].mavg_100 > this.dispData[company].mavg_200;
+    }
+
+    /**
+     * Returns 10 day volume > 3 month volume
+     * @param company 
+     */
+    public volCompare(company : string) : boolean {
+        return this.dispData[company].day10Volume > this.dispData[company].month3Volume
+    }
+
 }
 
 interface StockTableData {
