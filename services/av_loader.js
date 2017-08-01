@@ -17,7 +17,7 @@ exports.avCallDailySeries = function(company) {
 
 function getCurrentPrice(res) {
     //console.log(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"])
-    return res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"];
+    return parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"]);
 }
 
 function getMovingAverages(res) {
@@ -27,16 +27,27 @@ function getMovingAverages(res) {
         mavg_100: undefined,
         mavg_200: undefined
     }
-    
+    total = 0;
     let current = new Date().toISOString().substring(0, 10);
     current = getNextDayBack(res, current);
     while(daysCounted < 200) {
-
+        total += parseFloat(res["Time Series (Daily)"][current]["4. close"]);
+        daysCounted++;
+        try {
+            current = getNextDayBack(res, current);
+        }
+        catch(e) {
+            return data;
+        }
+        if (daysCounted == 50) data.mavg_50 = total / 50.0;
+        else if (daysCounted == 100) data.mavg_100 = total / 100.0;
+        else if (daysCounted == 200) data.mavg_200 = total / 200.0;
     }
+    return data;
 }
 
 function getNextDayBack(res, day) {
-    let date = new Date(day);
+    let date = new Date((new Date(day)).getTime() - 86400000);
     let current = date.toISOString().substring(0, 10);
     let timeout = 0;
     while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
@@ -70,7 +81,7 @@ function avCall(company, callback, onError) {
 }
 
 function test(res) {
-    console.log(getNextDayBack(res, (new Date()).toISOString().substring(0, 10)));
+    console.log(getMovingAverages(res));
 }
 //Testing
 avCall('GOOG', test, console.log);
