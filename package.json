@@ -14,8 +14,10 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.4",
+    "@angular/cli": "1.1.1",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
+    "@angular/compiler-cli": "^4.2.4",
     "@angular/core": "^4.2.4",
     "@angular/forms": "^4.2.4",
     "@angular/http": "^4.2.4",
@@ -26,10 +28,9 @@
     "core-js": "^2.4.1",
     "d3": "^4.9.1",
     "express": "^4.15.3",
+    "pg": "^7.0.2",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4",
-    "@angular/cli": "1.1.1",
-    "@angular/compiler-cli": "^4.2.4"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/cli": "1.1.1",
@@ -52,8 +53,8 @@
     "tslint": "~5.3.2",
     "typescript": "~2.3.3"
   },
-  "engines" : {
-    "node" : "6.11.0",
-    "npm" : "3.10.10"
+  "engines": {
+    "node": "6.11.0",
+    "npm": "3.10.10"
   }
 }
