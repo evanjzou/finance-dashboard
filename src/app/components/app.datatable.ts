@@ -13,6 +13,7 @@ export class DataTable implements OnInit {
     //@Input() companies: QuoteResult[];
     @Input() companyData: CompanyData[];
     @Input() indexData: CompanyData[];
+    @Input() stockData;
 
     dispData = {};
     indices = {};
@@ -41,8 +42,8 @@ export class DataTable implements OnInit {
                 day10Volume : 0,
                 percentChange5Day : 0,
                 currentPrice: 0
-            }
-        
+            } 
+            this.keys.push(companies[i]);
             /*
             this.keys.push(companies[i]);
             this.companyData[i].mavg50Data.subscribe(
@@ -60,13 +61,36 @@ export class DataTable implements OnInit {
                 this.historyServiceErrorHandle,
                 this.completionHandler
             ); */
-            this.keys.push(companies[i]);
+            /*this.keys.push(companies[i]);
             this.companyData[i].dailySeriesData.subscribe(
                 this.generateData.bind(this),
                 this.historyServiceErrorHandle,
                 this.completionHandler
-            )
+            ) */
         } 
+        this.stockData.subscribe(
+            (function (res) {
+                //alert("Call returned");
+                //alert(res[0].symbol);
+                for (let j = 0; j < res.length; j++) {
+                    this.dispData[res[j].symbol] = {
+                        symbol: res[j].symbol,
+                        mavg_50 : res[j].mavg50,
+                        mavg_100 : res[j].mavg100,
+                        mavg_200 : res[j].mavg200,
+                        month3Volume : res[j].month3vol,
+                        day10Volume : res[j].day10vol,
+                        percentChange5Day : res[j].percentchange5d,
+                        currentPrice: res[j].current_price
+                    }
+                }
+            }).bind(this),
+            function (err) {
+
+            },
+            this.completionHandler
+        );
+        
     }
 
     private historyServiceErrorHandle(err) : void {
@@ -323,6 +347,7 @@ export class DataTable implements OnInit {
      * @param company
      */
     public mavgUpSlope(company : string) : boolean {
+        if (this.dispData[company].currentPrice === undefined) return false;
         return this.dispData[company].currentPrice > this.dispData[company].mavg_50 &&
             this.dispData[company].mavg_50 > this.dispData[company].mavg_100 && 
                 this.dispData[company].mavg_100 > this.dispData[company].mavg_200;
@@ -333,6 +358,7 @@ export class DataTable implements OnInit {
      * @param company 
      */
     public volCompare(company : string) : boolean {
+        if (this.dispData[company].day10Volume === undefined) return false;
         return this.dispData[company].day10Volume > this.dispData[company].month3Volume
     }
 

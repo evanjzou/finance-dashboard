@@ -34,8 +34,6 @@ function updateEntry(company, res) {
     })
 }
 
-
-
 function updateFailureHandle() {
     console.log("An error while trying to access AlphaVantage");
 }
