@@ -8,12 +8,7 @@ const TIME_SERIES_BASE_URL = 'https://www.alphavantage.co/query?function=TIME_SE
 const TIME_SERIES_URL_TAIL = '&outputsize=full&apikey=U8DGBF2PDMXR2FZT';
 const TIME_SERIES_URL_TAIL_SHORT = '&apikey=U8DGBF2PDMXR2FZT';
 
-/**
- * TODO
- */
-exports.avCallDailySeries = function(company) {
-    return;
-}
+
 
 function getCurrentPrice(res) {
     //console.log(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"])
@@ -59,6 +54,11 @@ function fiveDayPercentChange(res) {
             parseFloat(res["Time Series (Daily)"][fiveDaysAgo]["4. close"])) * 100;
 }
 
+/**
+ * Returns 50, 100, and 200 day moving average if enough data is available
+ * Fields may be undefined if not enough data is available
+ * @param {*} res 
+ */
 function getMovingAverages(res) {
     let daysCounted = 0;
     let data = {
@@ -110,22 +110,36 @@ function getNextDayBack(res, day) {
  * @param {function} [callback] the callback to run on the resultant JSON
  * @param {function} [onError] the callback to run when an error occurs
  */
-function avCall(company, callback, onError) {
+exports.avCall = function(company, callback, onError) {
     https.get(TIME_SERIES_BASE_URL + company + TIME_SERIES_URL_TAIL, (res) => {
         var body = '';
         res.on('data', function (chunk) {
             body += chunk;
         });
         res.on('end', function() {
-            var response = JSON.parse(body);
+            var response = formatRes(JSON.parse(body));
             //console.log(response);
             callback(response);
         });
     }).on('error', onError); 
 }
 
-function test(res) {
+function formatRes(res) {
+    let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
+    let {day10Vol, day90Vol} = getVolumeAvgs(res);
+    return {
+        currentPrice: getCurrentPrice(res),
+        mavg50: mavg_50,
+        mavg100: mavg_100,
+        mavg200: mavg_200,
+        tenDayVol: day10Vol,
+        threeMVol: day90Vol,
+        percentChange5D: fiveDayPercentChange(res)
+    }
+}
+
+/*function test(res) {
     console.log(fiveDayPercentChange(res));
 }
-//Testing
-avCall('GOOG', test, console.log);
+//Testing */
+//exports.avCall('GOOG', console.log, console.log); //*/
