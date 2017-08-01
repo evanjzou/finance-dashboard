@@ -20,6 +20,45 @@ function getCurrentPrice(res) {
     return parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"]);
 }
 
+/**
+ * Returns { day10Vol: number, day90Vol: number} representing 10 day and 3 month
+ * average volumes
+ * @param {any} res 
+ */
+function getVolumeAvgs(res) {
+    let data = {
+        day10Vol: undefined,
+        day90Vol: undefined
+    }
+    let daysCounted = 0;
+    total = 0;
+    let current = new Date().toISOString().substring(0, 10);
+    current = getNextDayBack(res, current);
+    while(daysCounted < 200) {
+        total += parseFloat(res["Time Series (Daily)"][current]["5. volume"]);
+        daysCounted++;
+        try {
+            current = getNextDayBack(res, current);
+        }
+        catch(e) {
+            return data;
+        }
+        if (daysCounted == 10) data.day10Vol = total / 10.0;
+        else if (daysCounted == 90) data.day90Vol = total / 100.0;
+    }
+    return data;
+}
+
+function fiveDayPercentChange(res) {
+    let fiveDaysAgo = (new Date()).toISOString().substring(0, 10); //Initial
+    for (let i = 0; i < 5; i++) {
+        fiveDaysAgo = getNextDayBack(res, fiveDaysAgo);
+    }
+    return ((getCurrentPrice(res) - 
+        parseFloat(res["Time Series (Daily)"][fiveDaysAgo]["4. close"])) / 
+            parseFloat(res["Time Series (Daily)"][fiveDaysAgo]["4. close"])) * 100;
+}
+
 function getMovingAverages(res) {
     let daysCounted = 0;
     let data = {
@@ -46,6 +85,11 @@ function getMovingAverages(res) {
     return data;
 }
 
+/**
+ * Returns the latest day before [day] that has a data entry
+ * @param {*} res 
+ * @param {*} day 
+ */
 function getNextDayBack(res, day) {
     let date = new Date((new Date(day)).getTime() - 86400000);
     let current = date.toISOString().substring(0, 10);
@@ -81,7 +125,7 @@ function avCall(company, callback, onError) {
 }
 
 function test(res) {
-    console.log(getMovingAverages(res));
+    console.log(fiveDayPercentChange(res));
 }
 //Testing
 avCall('GOOG', test, console.log);
