@@ -15,8 +15,26 @@ exports.avCallDailySeries = function(company) {
     return;
 }
 
-function getNextDayBack(res) {
-    let today = (new Date()).toISOString().substring(0, 10);
+function getCurrentPrice(res) {
+    //console.log(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"])
+    return res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"];
+}
+
+function getMovingAverages(res) {
+
+}
+
+function getNextDayBack(res, day) {
+    let date = new Date(day);
+    console.log(date);
+    let current = date.toISOString().substring(0, 10);
+    while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
+            if (timeout > 200) throw 'timeout';
+            date = new Date(date.getTime() - 86400000);
+            current = date.toISOString().substring(0, 10);
+            timeout++;
+    }
+    return current;
 }
 
 /**
@@ -40,4 +58,6 @@ function avCall(company, callback, onError) {
     }).on('error', onError); 
 }
 
-getNextDayBack();
+
+//Testing
+avCall('GOOG', getCurrentPrice, console.log);
