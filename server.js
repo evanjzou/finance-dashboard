@@ -25,8 +25,8 @@ function updateEntry(company, res) {
         ', mavg50=' + (res.mavg50 === undefined ? 0: res.mavg50).toString() + 
         ', mavg100=' + (res.mavg100 === undefined ? 0: res.mavg100).toString() +
         ', mavg200=' + (res.mavg200 === undefined ? 0: res.mavg200).toString() + 
-        ', month3vol=' + res.threeMVol.toFixed(2).toString() + 
-        ', day10vol=' + res.tenDayVol.toFixed(2).toString() +
+        ', month3vol=' + res.threeMVol.toString() + 
+        ', day10vol=' + res.tenDayVol.toString() +
         ', percentchange5d=' + res.percentChange5D + 
         ' WHERE symbol=\'' + company + '\'', 
     (err, res) => {
@@ -42,6 +42,7 @@ function updateFailureHandle() {
  * Updates database
  */
 function updateDB() {
+    console.log("Updating...");
     for (let i = 0; i < constants.companies.length; i++) {
         av_loader.avCall(constants.companies[i], updateEntry, updateFailureHandle); //TO BE CHANGED
     }
@@ -67,6 +68,8 @@ app.get('/api/stockdata', function(req, response){
 });
 
 //updateDB();
+
+setInterval(updateDB, 30000);
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);

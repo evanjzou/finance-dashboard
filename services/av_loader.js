@@ -29,7 +29,7 @@ function getVolumeAvgs(res) {
     total = 0;
     let current = new Date().toISOString().substring(0, 10);
     current = getNextDayBack(res, current);
-    while(daysCounted < 200) {
+    while(daysCounted < 90) {
         total += parseFloat(res["Time Series (Daily)"][current]["5. volume"]);
         daysCounted++;
         try {
@@ -39,7 +39,7 @@ function getVolumeAvgs(res) {
             return data;
         }
         if (daysCounted == 10) data.day10Vol = total / 10.0;
-        else if (daysCounted == 90) data.day90Vol = total / 100.0;
+        else if (daysCounted == 90) data.day90Vol = total / 90.0;
     }
     return data;
 }
@@ -117,6 +117,10 @@ exports.avCall = function(company, callback, onError) {
             body += chunk;
         });
         res.on('end', function() {
+            if (res.statusCode != 200) {
+                console.log("Update call failed");
+                return;
+            }
             var response = formatRes(JSON.parse(body));
             //console.log(response);
             callback(company, response);
