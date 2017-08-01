@@ -21,13 +21,24 @@ function getCurrentPrice(res) {
 }
 
 function getMovingAverages(res) {
+    let daysCounted = 0;
+    let data = {
+        mavg_50: undefined,
+        mavg_100: undefined,
+        mavg_200: undefined
+    }
+    
+    let current = new Date().toISOString().substring(0, 10);
+    current = getNextDayBack(res, current);
+    while(daysCounted < 200) {
 
+    }
 }
 
 function getNextDayBack(res, day) {
     let date = new Date(day);
-    console.log(date);
     let current = date.toISOString().substring(0, 10);
+    let timeout = 0;
     while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
             if (timeout > 200) throw 'timeout';
             date = new Date(date.getTime() - 86400000);
@@ -58,6 +69,8 @@ function avCall(company, callback, onError) {
     }).on('error', onError); 
 }
 
-
+function test(res) {
+    console.log(getNextDayBack(res, (new Date()).toISOString().substring(0, 10)));
+}
 //Testing
-avCall('GOOG', getCurrentPrice, console.log);
+avCall('GOOG', test, console.log);
