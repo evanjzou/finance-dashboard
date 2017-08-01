@@ -119,7 +119,7 @@ exports.avCall = function(company, callback, onError) {
         res.on('end', function() {
             var response = formatRes(JSON.parse(body));
             //console.log(response);
-            callback(response);
+            callback(company, response);
         });
     }).on('error', onError); 
 }

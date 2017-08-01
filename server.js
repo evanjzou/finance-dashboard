@@ -1,7 +1,8 @@
 const express = require('express');
 const pg = require('pg');
 const config = require('./config');
-//const av_loader = require('./services/av_loader');
+const av_loader = require('./services/av_loader');
+const constants = require('./constants');
 
 const app = express();
 
@@ -16,8 +17,39 @@ client.connect((err) => {
     client.end();
 }); */
 
+function updateEntry(company, res) {
+    //console.log(company);
+    //console.log(res);
+    client.query('UPDATE stockdata SET current_price=' + 
+        res.currentPrice.toFixed(2).toString() + 
+        ', mavg50=' + (res.mavg50 === undefined ? 0: res.mavg50).toString() + 
+        ', mavg100=' + (res.mavg100 === undefined ? 0: res.mavg100).toString() +
+        ', mavg200=' + (res.mavg200 === undefined ? 0: res.mavg200).toString() + 
+        ', month3vol=' + res.threeMVol.toFixed(2).toString() + 
+        ', day10vol=' + res.tenDayVol.toFixed(2).toString() +
+        ', percentchange5d=' + res.percentChange5D + 
+        ' WHERE symbol=\'' + company + '\'', 
+    (err, res) => {
+        if (err) console.log(err);
+    })
+}
 
 
+
+function updateFailureHandle() {
+    console.log("An error while trying to access AlphaVantage");
+}
+
+/**
+ * Updates database
+ */
+function updateDB() {
+    for (let i = 0; i < constants.companies.length; i++) {
+        av_loader.avCall(constants.companies[i], updateEntry, updateFailureHandle); //TO BE CHANGED
+    }
+}
+
+//Setup
 app.get('/api/sanitycheck', function(req, res) {
     res.json({
         message: "Hello, API!"
@@ -35,6 +67,8 @@ app.get('/api/stockdata', function(req, response){
         }
     });
 });
+
+//updateDB();
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);
