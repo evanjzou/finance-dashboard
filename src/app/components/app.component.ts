@@ -4,12 +4,13 @@ import { FinanceService, QuoteResult } from '../service/finance_service';
 import { OnInit } from '@angular/core';
 import { companies } from '../constants';
 import { HistoricalDataService, CompanyData } from '../service/historical_data_factory';
+import { StockDataFactory } from '../service/backend_factory';
 
 @Component({
   selector: 'app-root',
   templateUrl: '../templates/app.component.html',
   styleUrls: ['../styles/app.component.css'],
-  providers: [FinanceService, HistoricalDataService]
+  providers: [FinanceService, HistoricalDataService, StockDataFactory]
 })
 export class AppComponent implements OnInit {
   
@@ -18,8 +19,11 @@ export class AppComponent implements OnInit {
   private company_info : QuoteResult[];
   private company_histories : CompanyData[];
   private index_data : CompanyData[];
+  private stockData;
 
-  constructor (private financeService: FinanceService, private historicalDataService: HistoricalDataService) { }
+  constructor (private financeService: FinanceService, 
+    private historicalDataService: HistoricalDataService,
+      private stockDataService: StockDataFactory) { }
 
   /*ngOnInit() : void {
     this.financeService.getJson().then(obj => this.setVals(obj.symbol, obj.ask));
@@ -31,24 +35,10 @@ export class AppComponent implements OnInit {
   } */
   ngOnInit() : void {
     //this.financeService.get_quotes(companies).then(response => this.set_company_info(response));
-    this.setSeries(this.historicalDataService.getStockData());
-    this.setIndexData(this.historicalDataService.getIndexData());
-
+    this.company_histories = this.historicalDataService.getStockData();
+    this.index_data = this.historicalDataService.getIndexData();
+    this.stockData = this.stockDataService.getStockData();
   }
-
-  set_company_info (quote_res) : void {
-    this.company_info = quote_res;
-    //alert(this.company_info[0].symbol);
-  }
-
-  setSeries (data : CompanyData[]) : void {
-    this.company_histories = data;
-  }
-
-  setIndexData (data : CompanyData[]) : void {
-    this.index_data = data;
-  }
-
 }
 
 
