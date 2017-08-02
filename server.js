@@ -67,7 +67,7 @@ app.get('/api/stockdata', function(req, response){
     });
 });
 
-//updateDB();
+updateDB();
 
 setInterval(updateDB, 30000);
 
