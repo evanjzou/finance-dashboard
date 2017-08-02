@@ -67,9 +67,9 @@ app.get('/api/stockdata', function(req, response){
     });
 });
 
-//updateDB();
+updateDB();
 
-setInterval(updateDB, 30000);
+setInterval(updateDB, 60000);
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);
