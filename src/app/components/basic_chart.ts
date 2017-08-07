@@ -25,10 +25,10 @@ export class BasicChart implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
   autoScale = true;
-  private data; //  =this.generateData();
+  data; //  =this.generateData();
   //data =  this.generateData();
 
-  private seriesByCompany : Series<number>[][] = [];
+  seriesByCompany : Series<number>[][] = [];
 
 
   //Company data from input

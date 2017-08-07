@@ -17,8 +17,8 @@ export class DataTable implements OnInit {
 
     dispData = {};
     indices = {};
-    private yesterday : string; 
-    private keys = [];
+    yesterday : string; 
+    keys = [];
     
     ngOnInit() {
         /*let date = new Date();

@@ -11,9 +11,9 @@ import { CompanyData } from '../service/historical_data_factory';
 })
 export class HistoricalDataComponent implements OnInit {
     
-    @Input() private company_data : CompanyData[];
-    private volatilityData : VolatilityData[] = [];
-    private volatilityByRange :  VolatilityData[];
+    @Input() company_data : CompanyData[];
+    volatilityData : VolatilityData[] = [];
+    volatilityByRange :  VolatilityData[];
 
     ngOnInit() : void {
       //TODO
