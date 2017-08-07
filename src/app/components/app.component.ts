@@ -14,12 +14,12 @@ import { StockDataFactory } from '../service/backend_factory';
 })
 export class AppComponent implements OnInit {
   
-  private symbol : String;
-  private ask : number;
-  private company_info : QuoteResult[];
-  private company_histories : CompanyData[];
-  private index_data : CompanyData[];
-  private stockData;
+  symbol : String;
+  ask : number;
+  company_info : QuoteResult[];
+  company_histories : CompanyData[];
+  index_data : CompanyData[];
+  stockData;
 
   constructor (private financeService: FinanceService, 
     private historicalDataService: HistoricalDataService,

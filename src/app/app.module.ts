@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HistoricalDataComponent } from './components/historical_data';
 import { HistoricalDataService } from './service/historical_data_factory';
+import { StockDataFactory } from './service/backend_factory';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { HistoricalDataService } from './service/historical_data_factory';
     NgxChartsModule,
     BrowserAnimationsModule
   ],
-  providers:  [FinanceService, HistoricalDataService],
+  providers:  [FinanceService, HistoricalDataService, StockDataFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
