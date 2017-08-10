@@ -90,6 +90,7 @@ function getVolatilityData(res) {
     }
     data.stdVolatility = stdVolatility(past30Prices);
     data.day3Pivot = pivots.reduce((total, val) => total + val, 0) / 3;
+    data.past30Ranges.reverse();
     return data;
 }
 

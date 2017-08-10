@@ -12,12 +12,13 @@ import { CompanyData } from '../service/historical_data_factory';
 export class HistoricalDataComponent implements OnInit {
     
     @Input() company_data : CompanyData[];
+    @Input() stockData;
     volatilityData : VolatilityData[] = [];
     volatilityByRange :  VolatilityData[];
 
     ngOnInit() : void {
       //TODO
-      for (let company of this.company_data) {
+      /*for (let company of this.company_data) {
         company.dailySeriesData.subscribe(
           //this.generateVolatilityData.bind(this), //Bind fixed
           this.stdVolatility.bind(this),
@@ -31,7 +32,27 @@ export class HistoricalDataComponent implements OnInit {
           }
         );
       }
-      this.volatilityByRange = this.volatilityData.sort((a,b) => {return b.range - a.range;});
+      this.volatilityByRange = this.volatilityData.sort((a,b) => {return b.range - a.range;}); */
+      this.stockData.subscribe(
+        (res) => {
+          for (let i = 0; i < res.length; i++) {
+            this.volatilityData.push({
+              symbol: res[i].symbol,
+              range: res[i].ranges[res[i].ranges.length - 1],
+              volatility: res[i].stdvolatility
+            });
+          }
+          this.volatilityData.sort( (a, b) => {
+              //return b.range - a.range;
+              return b.volatility - a.volatility;
+          });
+          this.volatilityByRange = this.volatilityData.slice().sort((a,b) => {return b.range - a.range;}); 
+        },
+        (err) => {
+          throw 'API FetchError'
+        },
+        () => console.log('Done')
+      );
     }
 
     /**@deprecated */
@@ -55,6 +76,7 @@ export class HistoricalDataComponent implements OnInit {
     }
 
     //Alternate calculation of volatility
+    /** @deprecated */
     private stdVolatility(res) : void {
       //TODO
       //alert("start");
@@ -93,12 +115,14 @@ export class HistoricalDataComponent implements OnInit {
       //alert("finish");
     }
 
+    /** @deprecated */
     private avgArray (array) : number {
       let avg = 0.0;
       array.forEach(value => { avg = avg + parseFloat(value) })
       return avg / array.length;
     }
 
+    /** @deprecated */
     private std(avg, vals) : number{
       let total = 0.0;
       let arr = vals.map(value => Math.pow(value - avg, 2));

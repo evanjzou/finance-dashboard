@@ -15,9 +15,9 @@
         <data-table [companyData]="company_histories" [indexData]="index_data" [stockData]="this.stockData"></data-table>
     </tab>
     <tab tabTitle="History">
-        <historical-data [company_data]="company_histories" ></historical-data>
+        <historical-data [company_data]="company_histories" [stockData]="this.stockData"></historical-data>
     </tab>
     <tab tabTitle="Charts">
-        <basic-chart [companyData]="company_histories" ></basic-chart>
+        <basic-chart [companyData]="company_histories" [stockData]="this.stockData"></basic-chart>
     </tab>
 </tabs>

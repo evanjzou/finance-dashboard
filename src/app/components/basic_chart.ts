@@ -33,6 +33,7 @@ export class BasicChart implements OnInit {
 
   //Company data from input
   @Input() companyData : CompanyData[];
+  @Input() stockData;
 
   ngOnInit() {
     //To be completed
