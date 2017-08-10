@@ -44,6 +44,44 @@ function getVolumeAvgs(res) {
     return data;
 }
 
+function stdVolatility(vals) {
+    let avg = vals.reduce((total, num) => total + num, 0) / vals.length;
+    return Math.sqrt(vals.map(val => Math.pow(val - avg, 2))
+        .reduce((total, num) => total + num, 0) / vals.length);
+}
+
+function getVolatilityData(res) {
+    let data = {
+        past30Ranges: [],
+        stdVolatility: 0
+    }
+    let past30Prices = [];
+    data.past30Ranges.push(Math.abs(parseFloat(
+        res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["2. high"] - 
+        res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["3. low"])));
+    past30Prices.push(parseFloat(
+        res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"]));
+    let current = new Date().toISOString().substring(0, 10);
+    current = getNextDayBack(res, current);
+    let daysCounted = 0;
+    while(daysCounted < 29) {
+        data.past30Ranges.push(Math.abs(parseFloat(
+            res["Time Series (Daily)"][current]["2. high"]) - 
+            parseFloat(res["Time Series (Daily)"][current]["3. low"])));
+        past30Prices.push(parseFloat(
+            res["Time Series (Daily)"][current]["4. close"]));
+        daysCounted++;
+        try {
+            current = getNextDayBack(res, current);
+        }
+        catch(e) {
+            return data;
+        }
+    }
+    data.stdVolatility = stdVolatility(past30Prices);
+    return data;
+}
+
 function fiveDayPercentChange(res) {
     let fiveDaysAgo = (new Date()).toISOString().substring(0, 10); //Initial
     for (let i = 0; i < 5; i++) {
@@ -131,6 +169,7 @@ exports.avCall = function(company, callback, onError) {
 function formatRes(res) {
     let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
     let {day10Vol, day90Vol} = getVolumeAvgs(res);
+    let {past30Ranges, stdVolatility} = getVolatilityData(res);
     return {
         currentPrice: getCurrentPrice(res),
         mavg50: mavg_50,
@@ -138,12 +177,13 @@ function formatRes(res) {
         mavg200: mavg_200,
         tenDayVol: day10Vol,
         threeMVol: day90Vol,
-        percentChange5D: fiveDayPercentChange(res)
+        percentChange5D: fiveDayPercentChange(res),
+        past30Ranges: past30Ranges,
+        stdVolatility: stdVolatility
     }
 }
 
-/*function test(res) {
-    console.log(fiveDayPercentChange(res));
-}
-//Testing */
-//exports.avCall('GOOG', console.log, console.log); //*/
+//Testing
+console.log("Testing...");
+exports.avCall('GOOG', console.log, console.log);
+//*/

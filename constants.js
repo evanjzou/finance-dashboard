@@ -68,3 +68,86 @@ exports.companies = [
     'XLNX',
     'XRX'
 ]
+
+exports.financeCompanies =[
+    // FINANCIAL SECTOR
+    'AMG',
+    'AFL',
+    'ALL',
+    'AXP',
+    'AXP',
+    'AIG',
+    'AMP',
+    'AON',
+    'AJG',
+    'AIZ',
+    'BAC',
+    'BBT',
+    'BRK-B',
+    'BLK',
+    'HRB',
+    'COF',
+    'CBOE',
+    'SCHW',
+    'CB',
+    'CINF',
+    'C',
+    'CFG',
+    'CME',
+    'CMA',
+    'DFS',
+    'ETFC',
+    'FITB',
+    'BEN',
+    'GS',
+    'HIG',
+    'HBAN',
+    'ICE',
+    'IVZ',
+    'JPM',
+    'KEY',
+    'LUK',
+    'LNC',
+    'L',
+    'MTB',
+    'MMC',
+    'MET',
+    'MCO',
+    'MS',
+    'NDAQ',
+    'NAVI',
+    'NTRS',
+    'PBCT',
+    'PNC',
+    'PFG',
+    'PGR',
+    'PRU',
+    'RF',
+    'SPGI',
+    'STT',
+    'STI',
+    'SYF',
+    'TROW',
+    'BK',
+    'TRV',
+    'TMK',
+    'USB',
+    'UNM',
+    'WFC',
+    'WLTW',
+    'XL',
+    'ZION'
+    //END FINANCIAL SECTOR
+]
+
+exports.sectorLookup ={}
+for(var i =0; i <exports.companies.length; i++) {
+    exports.sectorLookup[exports.companies[i]] = 'TECH';
+}
+
+//INITIALIZING COMPANIES IN FINANCIAL SECTOR
+
+
+for(var i =0; i <exports.financeCompanies.length; i++) {
+    exports.sectorLookup[exports.financeCompanies[i]] = 'FINA';
+}
