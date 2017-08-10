@@ -1,12 +1,12 @@
 const express = require('express');
 const pg = require('pg');
-const config = require('./config');
+//const config = require('./config');
 const av_loader = require('./services/av_loader');
 const constants = require('./constants');
 
 const app = express();
 
-var client = new pg.Client(process.env.DATABASE_URL || config.conString);
+var client = new pg.Client(process.env.DATABASE_URL);
 client.connect((err) => {  
     if (err) console.log(err);
 });

@@ -1,4 +1,6 @@
 table {
+    background-color: whitesmoke;
+
     width: 100%;
     border: 1px solid black;
 }
@@ -12,6 +14,8 @@ td {
     text-align: center;
 }
 
+
+
 .positive-indicator {
     background-color: green;
 }
@@ -23,3 +27,4 @@ td {
 /*.negative-indicator {
     To be implemented
 } */
+
