@@ -53,14 +53,20 @@ function stdVolatility(vals) {
 function getVolatilityData(res) {
     let data = {
         past30Ranges: [],
-        stdVolatility: 0
+        stdVolatility: 0,
+        day3Pivot: 0,
+        pivot: 0
     }
     let past30Prices = [];
+    let pivots = [];
     data.past30Ranges.push(Math.abs(parseFloat(
         res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["2. high"] - 
-        res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["3. low"])));
+        parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["3. low"]))));
     past30Prices.push(parseFloat(
         res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"]));
+    data.pivot = (parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["2. high"]) + 
+        parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["3. low"]) + 
+        parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"])) / 3;
     let current = new Date().toISOString().substring(0, 10);
     current = getNextDayBack(res, current);
     let daysCounted = 0;
@@ -70,6 +76,10 @@ function getVolatilityData(res) {
             parseFloat(res["Time Series (Daily)"][current]["3. low"])));
         past30Prices.push(parseFloat(
             res["Time Series (Daily)"][current]["4. close"]));
+        if (pivots.length < 3) pivots.push((parseFloat(
+            res["Time Series (Daily)"][current]["2. high"]) + 
+            parseFloat(res["Time Series (Daily)"][current]["3. low"]) + 
+            parseFloat(res["Time Series (Daily)"][current]["4. close"])) / 3);
         daysCounted++;
         try {
             current = getNextDayBack(res, current);
@@ -79,6 +89,7 @@ function getVolatilityData(res) {
         }
     }
     data.stdVolatility = stdVolatility(past30Prices);
+    data.day3Pivot = pivots.reduce((total, val) => total + val, 0) / 3;
     return data;
 }
 
@@ -169,7 +180,7 @@ exports.avCall = function(company, callback, onError) {
 function formatRes(res) {
     let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
     let {day10Vol, day90Vol} = getVolumeAvgs(res);
-    let {past30Ranges, stdVolatility} = getVolatilityData(res);
+    let {past30Ranges, stdVolatility, day3Pivot, pivot} = getVolatilityData(res);
     return {
         currentPrice: getCurrentPrice(res),
         mavg50: mavg_50,
@@ -179,11 +190,13 @@ function formatRes(res) {
         threeMVol: day90Vol,
         percentChange5D: fiveDayPercentChange(res),
         past30Ranges: past30Ranges,
-        stdVolatility: stdVolatility
+        stdVolatility: stdVolatility,
+        day3Pivot: day3Pivot,
+        pivot: pivot
     }
 }
 
-//Testing
+/*/Testing
 console.log("Testing...");
 exports.avCall('GOOG', console.log, console.log);
 //*/

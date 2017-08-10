@@ -27,10 +27,17 @@ function updateEntry(company, res) {
         ', mavg200=' + (res.mavg200 === undefined ? 0: res.mavg200).toString() + 
         ', month3vol=' + res.threeMVol.toString() + 
         ', day10vol=' + res.tenDayVol.toString() +
-        ', percentchange5d=' + res.percentChange5D + 
+        ', percentchange5d=' + res.percentChange5D.toString() + 
+        ', ranges=ARRAY[' + res.past30Ranges.toString() + ']' +
+        ', pivotAvg=' + res.day3Pivot.toString() +
+        ', stdVolatility=' + res.stdVolatility.toString() +
         ' WHERE symbol=\'' + company + '\'', 
     (err, res) => {
-        if (err) console.log(err);
+        if (err) {
+            console.log(err);
+            //console.log(res);
+        }
+        console.log("Updated " + company);
     })
 }
 
