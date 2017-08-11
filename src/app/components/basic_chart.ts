@@ -49,8 +49,17 @@ export class BasicChart implements OnInit {
         err => {throw 'Chart Error'},
         () => {console.log("Complete")}
       );
-    }
+    } 
+    this.stockData.subscribe(
+      //TODO
+    );
   }
+
+  seriesFromRes(res) : Series<number>[][] {
+    return [];
+  }
+
+  
 
   //Generate random placeholder data
   generateData() {

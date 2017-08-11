@@ -32,6 +32,7 @@
     <tr>
         <th>Symbol</th>
         <th>Current Price</th>
+        <th>% Change (5 Days)</th>
         <th>50 Day Moving Average</th>
         <th>100 Day Moving Average</th>
         <th>200 Day Moving Average</th>
@@ -39,13 +40,14 @@
         <th>3 Month (90 Day) Volume</th>
         <th>10 Day Volume</th>
         <th>10D vol > 3M Vol</th>
-        <th>% Change (5 Days)</th>
+        <th>3 Day Pivot</th>
         <!--th>% Change Index (5 Day)</th -->
 
     </tr>
     <tr *ngFor="let company of keys">
         <td>{{dispData[company].symbol}}</td>
         <td>{{dispData[company].currentPrice == 0 ? "N/A" : dispData[company].currentPrice.toFixed(2)}}</td>
+        <td>{{dispData[company].percentChange5Day == 0 ? "N/A" : "" +  dispData[company].percentChange5Day.toFixed(2) + "%"}}</td>
         <td>{{dispData[company].mavg_50 == 0 ? "N/A" : dispData[company].mavg_50.toFixed(2)}}</td>
         <td>{{dispData[company].mavg_100 == 0 ? "N/A" : dispData[company].mavg_100.toFixed(2)}}</td>
         <td>{{dispData[company].mavg_200 == 0 ? "N/A" : dispData[company].mavg_200.toFixed(2)}}</td>
@@ -67,7 +69,7 @@
             <div class="neutral-indicator" 
                 *ngIf="dispData[company].day10Volume == 0">Loading...</div>
         </td>
-        <td>{{dispData[company].percentChange5Day == 0 ? "N/A" : "" +  dispData[company].percentChange5Day.toFixed(2) + "%"}}</td>
+        <td>{{dispData[company].pivotavg == 0 ? "N/A" : dispData[company].pivotavg.toFixed(2)}}</td>
         <!--td>TODO</td-->
     </tr>
 </table>

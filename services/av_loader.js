@@ -153,6 +153,16 @@ function getNextDayBack(res, day) {
     return current;
 }
 
+function detectGap(res) {
+    let current = new Date().toISOString().substring(0, 10);
+    current = getNextDayBack(res, current);
+    let daybefore = getNextDayBack(res, current);
+    return parseFloat(res["Time Series (Daily)"][current]["3. low"]) > 
+        parseFloat(res["Time Series (Daily)"][daybefore]["2. high"]) ||
+        parseFloat(res["Time Series (Daily)"][daybefore]["3. low"]) > 
+        parseFloat(res["Time Series (Daily)"][current]["2. high"]);
+}
+
 /**
  * Runs callback on the JSON output from an https daily series call to
  * AlphaVantage
@@ -193,7 +203,8 @@ function formatRes(res) {
         past30Ranges: past30Ranges,
         stdVolatility: stdVolatility,
         day3Pivot: day3Pivot,
-        pivot: pivot
+        pivot: pivot,
+        gappresent: detectGap(res)
     }
 }
 

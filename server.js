@@ -31,6 +31,7 @@ function updateEntry(company, res) {
         ', ranges=ARRAY[' + res.past30Ranges.toString() + ']' +
         ', pivotAvg=' + res.day3Pivot.toString() +
         ', stdVolatility=' + res.stdVolatility.toString() +
+        ', gappresent=\'' + res.gappresent.toString() + '\'' +
         ' WHERE symbol=\'' + company + '\'', 
     (err, res) => {
         if (err) {

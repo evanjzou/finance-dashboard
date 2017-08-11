@@ -41,7 +41,8 @@ export class DataTable implements OnInit {
                 month3Volume : 0,
                 day10Volume : 0,
                 percentChange5Day : 0,
-                currentPrice: 0
+                currentPrice: 0,
+                pivotavg: 0
             } 
             this.keys.push(companies[i]);
             /*
@@ -81,7 +82,9 @@ export class DataTable implements OnInit {
                         month3Volume : res[j].month3vol,
                         day10Volume : res[j].day10vol,
                         percentChange5Day : res[j].percentchange5d,
-                        currentPrice: res[j].current_price
+                        currentPrice: res[j].current_price,
+                        pivotavg : res[j].pivotavg,
+                        gappresent : res[j].gappresent
                     }
                 }
             }).bind(this),
