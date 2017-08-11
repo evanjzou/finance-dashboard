@@ -84,7 +84,9 @@ export class DataTable implements OnInit {
                         percentChange5Day : res[j].percentchange5d,
                         currentPrice: res[j].current_price,
                         pivotavg : res[j].pivotavg,
-                        gappresent : res[j].gappresent
+                        gappresent : res[j].gappresent,
+                        rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                            res[j].ranges[res[j].ranges.length - 2]
                     }
                 }
             }).bind(this),

@@ -16,10 +16,14 @@ td {
     background-color: green;
 }
 
-/*.neutral-indicator {
-    To be implemented
-}*/ 
+.neutral-indicator {
+    background-color: #ffdead;
+}
 
-/*.negative-indicator {
-    To be implemented
-} */
+.negative-indicator {
+    background-color: #ff4d4d;
+} 
+
+.highlight-indicator {
+    background-color: yellow;
+}
