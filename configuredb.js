@@ -34,16 +34,21 @@ client.query('CREATE TABLE stockdata (symbol varchar(6), current_price real, '+
         (err, res) => {
             if(err) console.log(err);
             else {
-                for (let i = 0; i < constants.companies.length; i++) {
+                for (let i = 0; i < constants.allCompanies.length; i++) {
+                    //console.log("Company is " + constants.allCompanies[i]);
+                    //console.log("Sector is " + constants.sectorLookup[constants.allCompanies[i]]);
                     client.query('INSERT INTO stockdata (symbol, current_price, '+
                     'mavg50, mavg100, mavg200, month3vol, day10vol, percentChange5D, '+
                     'percentOfIndex, sector, ranges, gapPresent, pivotAvg, ' + 
                     'stdVolatility) VALUES (\'' + 
-                    constants.companies[i] + '\', 0, 0, 0, 0, 0, 0, 0, 0, \'' +
-                    constants.sectorLookup[constants.companies[i]] + 
+                    constants.allCompanies[i] + '\', 0, 0, 0, 0, 0, 0, 0, 0, \'' +
+                    constants.sectorLookup[constants.allCompanies[i]] + 
                     '\', ARRAY[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], FALSE, 0, 0)',
                     (err, res) => {
-                        if (err) console.log(err);
+                        if (err) {
+                            console.log(err);
+                            //console.log("error occured");
+                        }
                     });
                 }
             }

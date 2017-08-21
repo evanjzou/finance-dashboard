@@ -615,11 +615,6 @@ exports.teleComm =[
     'VZ'
 ]
 
-exports.allCompanies = exports.companies + exports.financeCompanies + 
-exports.healthCareCompanies + exports.consumerDiscretionary + exports.energy + exports.industrials + 
-exports.materials + exports.utilities +  exports.realEstate + exports.consumerStaples + exports.teleComm;
-
-
 exports.sectorLookup ={}
 for(var i =0; i <exports.companies.length; i++) {
     exports.sectorLookup[exports.companies[i]] = 'TECH';
@@ -665,6 +660,11 @@ for(var i =0; i <exports.teleComm.length; i++) {
     exports.sectorLookup[exports.teleComm[i]] = 'TELC';
 }
 
+exports.allCompanies = exports.companies.concat(exports.financeCompanies).concat(exports.healthCareCompanies)
+.concat(exports.consumerDiscretionary).concat(exports.energy).concat(exports.industrials)
+.concat(exports.materials).concat(exports.utilities).concat(exports.realEstate)
+.concat(exports.consumerStaples).concat(exports.teleComm);
+
 //TEST
 
 
@@ -672,5 +672,6 @@ for(var i =0; i <exports.teleComm.length; i++) {
 console.log(keys);
 
 for (var i = 0; i < keys.length; i++) {
-    console.log(exports.sectorLookup[keys[i]]);
+    console.log(exports.allCompanies[i]);
+    //console.log(keys[i] + ", " + exports.sectorLookup[keys[i]]);
 } //*/

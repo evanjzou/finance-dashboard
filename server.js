@@ -51,8 +51,8 @@ function updateFailureHandle() {
  */
 function updateDB() {
     console.log("Updating...");
-    for (let i = 0; i < constants.companies.length; i++) {
-        av_loader.avCall(constants.companies[i], updateEntry, updateFailureHandle); //TO BE CHANGED
+    for (let i = 0; i < constants.allCompanies.length; i++) {
+        av_loader.avCall(constants.allCompanies[i], updateEntry, updateFailureHandle); //TO BE CHANGED
     }
 }
 
@@ -77,7 +77,7 @@ app.get('/api/stockdata', function(req, response){
 
 updateDB();
 
-setInterval(updateDB, 60000);
+setInterval(updateDB, 120000);
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);
