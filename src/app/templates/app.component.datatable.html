@@ -28,6 +28,20 @@
         <td>{{company.close_price == null ? "N/A" : (company.mavg_200 - company.close_price).toFixed(2)}}</td>  
     </tr>
 </table-->
+<div>Sector:</div>
+<select id="sector-select">
+    <option value="TECH">Technology</option>
+    <option value="FINA">Financial</option>
+    <option value="HECA">Healthcare</option>
+    <option value="COND">Consumer Discretionary</option>
+    <option value="ENER">Energy</option>
+    <option value="INDU">Industrials</option>
+    <option value="MATE">Materials</option>
+    <option value="UTIL">Utilities</option>
+    <option value="REAL">Real Estate</option>
+    <option value="CONS">Consumer Staples</option>
+    <option value="TELC">Telecommunications</option>
+</select>
 <table>
     <tr>
         <th>Symbol</th>
