@@ -65,7 +65,7 @@ export class DataTable implements OnInit {
             this.keys.push(companies[i]);
         } */
         this.initializeDispData();
-        this.stockData.subscribe(
+        /*this.stockData.subscribe(
             (function (res) {
                 //alert("Call returned");
                 //alert(res[0].symbol);
@@ -90,7 +90,8 @@ export class DataTable implements OnInit {
 
             },
             this.completionHandler
-        );
+        ); */
+        this.fetchStockData();
         
     }
 
@@ -283,7 +284,37 @@ export class DataTable implements OnInit {
         this.telc = Object.keys(this.teleComDispData);
 
         this.keys = this.tech;
-        alert(this.keys.length);
+        //alert(this.keys.length);
+    }
+
+    private fetchStockData() : void {
+        //TODO
+        this.stockData.subscribe(
+            (function (res) {
+                //alert("Call returned");
+                //alert(res[0].symbol);
+                for (let j = 0; j < res.length; j++) {
+                    this.dispData[res[j].symbol] = {
+                        symbol: res[j].symbol,
+                        mavg_50 : res[j].mavg50,
+                        mavg_100 : res[j].mavg100,
+                        mavg_200 : res[j].mavg200,
+                        month3Volume : res[j].month3vol,
+                        day10Volume : res[j].day10vol,
+                        percentChange5Day : res[j].percentchange5d,
+                        currentPrice: res[j].current_price,
+                        pivotavg : res[j].pivotavg,
+                        gappresent : res[j].gappresent,
+                        rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                            res[j].ranges[res[j].ranges.length - 2]
+                    }
+                }
+            }).bind(this),
+            function (err) {
+
+            },
+            this.completionHandler
+        );
     }
 
     /** @deprecated */
