@@ -31,13 +31,26 @@ export class DataTable implements OnInit {
     conSDispData = {};
     teleComDispData = {};
 
+    //Keys
+    tech = [];
+    finance = [];
+    health = [];
+    cdis = [];
+    enrg = [];
+    inds = [];
+    material = [];
+    util = [];
+    real = [];
+    cons = [];
+    telc = [];
+
     //Unused
     indices = {};
     yesterday : string; 
     keys = [];
     
     ngOnInit() {
-        for (let i = 0; i < companies.length; i++) {
+        /*for (let i = 0; i < companies.length; i++) {
             this.dispData[companies[i]] = {
                 symbol: companies[i],
                 mavg_50 : 0,
@@ -50,7 +63,8 @@ export class DataTable implements OnInit {
                 pivotavg: 0
             } 
             this.keys.push(companies[i]);
-        } 
+        } */
+        this.initializeDispData();
         this.stockData.subscribe(
             (function (res) {
                 //alert("Call returned");
@@ -106,6 +120,8 @@ export class DataTable implements OnInit {
             } 
         } 
 
+        this.tech = Object.keys(this.dispData);
+
         for (let i = 0; i < financeCompanies.length; i++) {
             this.financeDispData[financeCompanies[i]] = {
                 symbol: financeCompanies[i],
@@ -119,6 +135,8 @@ export class DataTable implements OnInit {
                 pivotavg: 0
             } 
         } 
+
+        this.finance = Object.keys(this.financeDispData);
 
         for (let i = 0; i < healthCareCompanies.length; i++) {
             this.healthDispData[healthCareCompanies[i]] = {
@@ -134,6 +152,8 @@ export class DataTable implements OnInit {
             } 
         } 
 
+        this.health = Object.keys(this.healthDispData);
+
         for (let i = 0; i < consumerDiscretionary.length; i++) {
             this.cDisDispData[consumerDiscretionary[i]] = {
                 symbol: consumerDiscretionary[i],
@@ -148,6 +168,8 @@ export class DataTable implements OnInit {
             } 
         }
 
+        this.cdis = Object.keys(this.cDisDispData);
+
         for (let i = 0; i < energy.length; i++) {
             this.energyDispData[energy[i]] = {
                 symbol: energy[i],
@@ -160,7 +182,108 @@ export class DataTable implements OnInit {
                 currentPrice: 0,
                 pivotavg: 0
             } 
+        }
+        
+        this.enrg = Object.keys(this.energyDispData);
+
+        for (let i = 0; i < industrials.length; i++) {
+            this.industrialsDispData[industrials[i]] = {
+                symbol: industrials[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
         } 
+
+        this.inds = Object.keys(this.industrialsDispData);
+
+        for (let i = 0; i < materials.length; i++) {
+            this.materialsDispData[materials[i]] = {
+                symbol: materials[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        this.material = Object.keys(this.materialsDispData);
+
+        for (let i = 0; i < utilities.length; i++) {
+            this.utilDispData[utilities[i]] = {
+                symbol: utilities[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        this.util = Object.keys(this.utilDispData);
+
+        for (let i = 0; i < realEstate.length; i++) {
+            this.realDispData[realEstate[i]] = {
+                symbol: realEstate[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        this.real = Object.keys(this.realDispData);
+
+        for (let i = 0; i < consumerStaples.length; i++) {
+            this.conSDispData[consumerStaples[i]] = {
+                symbol: consumerStaples[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        this.cons = Object.keys(this.conSDispData);
+
+        for (let i = 0; i < teleComm.length; i++) {
+            this.teleComDispData[teleComm[i]] = {
+                symbol: teleComm[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        this.telc = Object.keys(this.teleComDispData);
+
+        this.keys = this.tech;
+        alert(this.keys.length);
     }
 
     /** @deprecated */
