@@ -2,7 +2,10 @@ import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { QuoteResult } from '../service/finance_service';
 import { CompanyData } from '../service/historical_data_factory';
-import { companies } from '../constants';
+import { companies, financeCompanies, healthCareCompanies, 
+    consumerDiscretionary, energy, industrials,  materials, 
+    utilities, realEstate, consumerStaples, teleComm} from '../constants';
+import { allCompanies } from '../constants';
 
 @Component({
     selector: 'data-table',
@@ -15,23 +18,25 @@ export class DataTable implements OnInit {
     @Input() indexData: CompanyData[];
     @Input() stockData;
 
-    dispData = {};
+    //Display data by sector
+    dispData = {}; //Tech
+    financeDispData = {};
+    healthDispData = {};
+    cDisDispData = {}; //Consumer discretionary
+    energyDispData = {};
+    industrialsDispData = {};
+    materialsDispData = {};
+    utilDispData = {};
+    realDispData = {};
+    conSDispData = {};
+    teleComDispData = {};
+
+    //Unused
     indices = {};
     yesterday : string; 
     keys = [];
     
     ngOnInit() {
-        /*let date = new Date();
-        date = new Date(date.getTime() - 86400000);
-        while (date.getDay() == 0 || date.getDay() == 6) {
-            date = new Date(date.getTime() - 86400000);
-        }
-        let dayNum = date.getDate().toString();
-        let year = date.getFullYear().toString();
-        let month = date.getMonth().toString();
-        dayNum = parseInt(dayNum) < 10 ? "0" + dayNum : dayNum;
-        month = parseInt(month) + 1 < 10  ? "0" + (parseInt(month) + 1) : month;
-        this.yesterday = year + "-" + month + "-" + dayNum; */
         for (let i = 0; i < companies.length; i++) {
             this.dispData[companies[i]] = {
                 symbol: companies[i],
@@ -45,29 +50,6 @@ export class DataTable implements OnInit {
                 pivotavg: 0
             } 
             this.keys.push(companies[i]);
-            /*
-            this.keys.push(companies[i]);
-            this.companyData[i].mavg50Data.subscribe(
-                this.set50DayMA.bind(this),
-                this.historyServiceErrorHandle,
-                this.completionHandler
-            );
-            this.companyData[i].mavg100Data.subscribe(
-                this.set100DayMA.bind(this),
-                this.historyServiceErrorHandle,
-                this.completionHandler
-            );
-            this.companyData[i].mavg200Data.subscribe(
-                this.set200DayMA.bind(this),
-                this.historyServiceErrorHandle,
-                this.completionHandler
-            ); */
-            /*this.keys.push(companies[i]);
-            this.companyData[i].dailySeriesData.subscribe(
-                this.generateData.bind(this),
-                this.historyServiceErrorHandle,
-                this.completionHandler
-            ) */
         } 
         this.stockData.subscribe(
             (function (res) {
@@ -104,6 +86,81 @@ export class DataTable implements OnInit {
 
     private completionHandler() : void {
         console.log("Completed");
+    }
+
+    /**
+     * Initializes the display data with default fields
+     */
+    private initializeDispData() : void {
+        for (let i = 0; i < companies.length; i++) {
+            this.dispData[companies[i]] = {
+                symbol: companies[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        for (let i = 0; i < financeCompanies.length; i++) {
+            this.financeDispData[financeCompanies[i]] = {
+                symbol: financeCompanies[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        for (let i = 0; i < healthCareCompanies.length; i++) {
+            this.healthDispData[healthCareCompanies[i]] = {
+                symbol: healthCareCompanies[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+
+        for (let i = 0; i < consumerDiscretionary.length; i++) {
+            this.cDisDispData[consumerDiscretionary[i]] = {
+                symbol: consumerDiscretionary[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        }
+
+        for (let i = 0; i < energy.length; i++) {
+            this.energyDispData[energy[i]] = {
+                symbol: energy[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
     }
 
     /** @deprecated */
