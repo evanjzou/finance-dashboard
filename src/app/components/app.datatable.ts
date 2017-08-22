@@ -291,24 +291,186 @@ export class DataTable implements OnInit {
         //TODO
         this.stockData.subscribe(
             (function (res) {
-                //alert("Call returned");
-                //alert(res[0].symbol);
                 for (let j = 0; j < res.length; j++) {
-                    this.dispData[res[j].symbol] = {
-                        symbol: res[j].symbol,
-                        mavg_50 : res[j].mavg50,
-                        mavg_100 : res[j].mavg100,
-                        mavg_200 : res[j].mavg200,
-                        month3Volume : res[j].month3vol,
-                        day10Volume : res[j].day10vol,
-                        percentChange5Day : res[j].percentchange5d,
-                        currentPrice: res[j].current_price,
-                        pivotavg : res[j].pivotavg,
-                        gappresent : res[j].gappresent,
-                        rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
-                            res[j].ranges[res[j].ranges.length - 2]
+                    if (res[j].sector == 'TECH') {
+                        this.dispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'FINA') {
+                        this.financeDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'HECA') {
+                        this.healthDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'COND') {
+                        this.cDisDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'ENER') {
+                        this.energyDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'INDU') {
+                        this.industrialsDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'MATE') {
+                        this.materialsDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'UTIL') {
+                        this.utilDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'REAL') {
+                        this.realDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'CONS') {
+                        this.conSDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                    else if (res[j].sector == 'TELC') {
+                        this.teleComDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
                     }
                 }
+                alert(this.dispData['ATVI'].mavg_50);
+                alert(this.financeDispData['AMG'].mavg_50);
             }).bind(this),
             function (err) {
 
