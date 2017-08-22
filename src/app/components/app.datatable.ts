@@ -44,6 +44,9 @@ export class DataTable implements OnInit {
     cons = [];
     telc = [];
 
+    //ActiveSector
+    activeSector = "TECH";
+
     //Unused
     indices = {};
     yesterday : string; 
@@ -469,14 +472,19 @@ export class DataTable implements OnInit {
                         }
                     }
                 }
-                alert(this.dispData['ATVI'].mavg_50);
-                alert(this.financeDispData['AMG'].mavg_50);
+                //alert(this.dispData['ATVI'].mavg_50);
+                //alert(this.financeDispData['AMG'].mavg_50);
             }).bind(this),
             function (err) {
 
             },
             this.completionHandler
         );
+    }
+
+    setActiveSector(newSector) : void {
+        this.activeSector = newSector;
+        //alert('Sector changed');
     }
 
     /** @deprecated */
