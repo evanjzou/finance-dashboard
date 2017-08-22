@@ -660,10 +660,10 @@ for(var i =0; i <exports.teleComm.length; i++) {
     exports.sectorLookup[exports.teleComm[i]] = 'TELC';
 }
 
-exports.allCompanies = exports.companies.concat(exports.financeCompanies).concat(exports.healthCareCompanies)
-.concat(exports.consumerDiscretionary).concat(exports.energy).concat(exports.industrials)
-.concat(exports.materials).concat(exports.utilities).concat(exports.realEstate)
-.concat(exports.consumerStaples).concat(exports.teleComm);
+exports.allCompanies = exports.companies.concat(exports.financeCompanies, 
+    exports.healthCareCompanies, exports.consumerDiscretionary, 
+    exports.energy, exports.industrials, exports.materials, exports.utilities,
+    exports.realEstate, exports.consumerStaples, exports.teleComm);
 
 //TEST
 
