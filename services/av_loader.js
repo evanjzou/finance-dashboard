@@ -69,6 +69,7 @@ function getVolatilityData(res) {
         parseFloat(res["Time Series (Daily)"][res["Meta Data"]["3. Last Refreshed"]]["4. close"])) / 3;
     let current = new Date().toISOString().substring(0, 10);
     current = getNextDayBack(res, current);
+    if (current == res["Meta Data"]["3. Last Refreshed"]) current = getNextDayBack(res, current);
     let daysCounted = 0;
     while(daysCounted < 29) {
         data.past30Ranges.push(Math.abs(parseFloat(
