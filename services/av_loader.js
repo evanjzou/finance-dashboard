@@ -86,6 +86,7 @@ function getVolatilityData(res) {
             current = getNextDayBack(res, current);
         }
         catch(e) {
+            console.log("Short circuit"); //Debug
             return data;
         }
     }
@@ -187,6 +188,7 @@ exports.avCall = function(company, callback, onError) {
             var response;
             try {
                 response = formatRes(JSON.parse(body));
+                //console.log(response); //Debug ERROR: Returning 0's on weekend
             }
             catch (e) {
                 console.log("Incomplete JSON; Parse failed");
@@ -219,6 +221,7 @@ function formatRes(res) {
         }
     }
     catch (err) {
+        console.log(err); //Debug
         return {
             currentPrice: 0,
             mavg50: 0,
