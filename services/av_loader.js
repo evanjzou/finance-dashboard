@@ -82,13 +82,7 @@ function getVolatilityData(res) {
             parseFloat(res["Time Series (Daily)"][current]["3. low"]) + 
             parseFloat(res["Time Series (Daily)"][current]["4. close"])) / 3);
         daysCounted++;
-        try {
-            current = getNextDayBack(res, current);
-        }
-        catch(e) {
-            console.log("Short circuit"); //Debug
-            return data;
-        }
+        current = getNextDayBack(res, current);
     }
     data.stdVolatility = stdVolatility(past30Prices);
     data.day3Pivot = pivots.reduce((total, val) => total + val, 0) / 3;
@@ -204,29 +198,23 @@ exports.avCall = function(company, callback, onError) {
 }
 
 function formatRes(res) {
-    try{
-        let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
-        let {day10Vol, day90Vol} = getVolumeAvgs(res);
-        let {past30Ranges, stdVolatility, day3Pivot, pivot} = getVolatilityData(res);
-        return {
-            currentPrice: getCurrentPrice(res),
-            mavg50: mavg_50,
-            mavg100: mavg_100,
-            mavg200: mavg_200,
-            tenDayVol: day10Vol,
-            threeMVol: day90Vol,
-            percentChange5D: fiveDayPercentChange(res),
-            past30Ranges: past30Ranges,
-            stdVolatility: stdVolatility,
-            day3Pivot: day3Pivot,
-            pivot: pivot,
-            gappresent: detectGap(res)
-        }
+    let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
+    let {day10Vol, day90Vol} = getVolumeAvgs(res);
+    let {past30Ranges, stdVolatility, day3Pivot, pivot} = getVolatilityData(res);
+    return {
+        currentPrice: getCurrentPrice(res),
+        mavg50: mavg_50,
+        mavg100: mavg_100,
+        mavg200: mavg_200,
+        tenDayVol: day10Vol,
+        threeMVol: day90Vol,
+        percentChange5D: fiveDayPercentChange(res),
+        past30Ranges: past30Ranges,
+        stdVolatility: stdVolatility,
+        day3Pivot: day3Pivot,
+        pivot: pivot,
+        gappresent: detectGap(res)
     }
-    catch (err) {
-        //console.log(err); //Debug
-        throw "Result Format Error";
-    } 
     
 }
 
