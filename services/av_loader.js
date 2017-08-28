@@ -147,7 +147,7 @@ function getNextDayBack(res, day) {
     let current = date.toISOString().substring(0, 10);
     let timeout = 0;
     if (res["Time Series (Daily)"] == undefined) {
-        console.log(res);
+        //console.log(res); DEBUG
         throw 'Fetch failure';
     }
     while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
@@ -194,7 +194,7 @@ exports.avCall = function(company, callback, onError) {
                 //console.log(response); //Debug ERROR: Returning 0's on weekend
             }
             catch (e) {
-                console.log("Incomplete JSON; Parse failed");
+                console.log("Parse failed");
                 return;
             }
             //console.log(response);
@@ -224,7 +224,7 @@ function formatRes(res) {
         }
     }
     catch (err) {
-        console.log(err); //Debug
+        //console.log(err); //Debug
         throw "Result Format Error";
     } 
     
