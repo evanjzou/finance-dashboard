@@ -146,7 +146,10 @@ function getNextDayBack(res, day) {
     let date = new Date((new Date(day)).getTime() - 86400000);
     let current = date.toISOString().substring(0, 10);
     let timeout = 0;
-    if (res["Time Series (Daily)"] == undefined) throw 'Fetch failure';
+    if (res["Time Series (Daily)"] == undefined) {
+        console.log(res);
+        throw 'Fetch failure';
+    }
     while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
         if (timeout > 200) throw 'timeout';
         date = new Date(date.getTime() - 86400000);
@@ -222,20 +225,7 @@ function formatRes(res) {
     }
     catch (err) {
         console.log(err); //Debug
-        return {
-            currentPrice: 0,
-            mavg50: 0,
-            mavg100: 0,
-            mavg200: 0,
-            tenDayVol: 0,
-            threeMVol: 0,
-            percentChange5D: 0,
-            past30Ranges: 0,
-            stdVolatility: 0,
-            day3Pivot: 0,
-            pivot: 0,
-            gappresent: 0
-        }
+        throw "Result Format Error";
     } 
     
 }
