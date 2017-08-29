@@ -33,10 +33,23 @@ function updateEntry(company, res) {
         ', stdVolatility=' + res.stdVolatility.toString() +
         ', gappresent=\'' + res.gappresent.toString() + '\'' +
         ' WHERE symbol=\'' + company + '\'', 
-    (err, res) => {
+    (err, result) => {
         if (err) {
             console.log(err);
             //console.log(res);
+            /*console.log('UPDATE stockdata SET current_price=' + 
+            res.currentPrice.toFixed(2).toString() + 
+            ', mavg50=' + (res.mavg50 === undefined ? 0: res.mavg50).toString() + 
+            ', mavg100=' + (res.mavg100 === undefined ? 0: res.mavg100).toString() +
+            ', mavg200=' + (res.mavg200 === undefined ? 0: res.mavg200).toString() + 
+            ', month3vol=' + res.threeMVol.toString() + 
+            ', day10vol=' + res.tenDayVol.toString() +
+            ', percentchange5d=' + res.percentChange5D.toString() + 
+            ', ranges=ARRAY[' + res.past30Ranges.toString() + ']' +
+            ', pivotAvg=' + res.day3Pivot.toString() +
+            ', stdVolatility=' + res.stdVolatility.toString() +
+            ', gappresent=\'' + res.gappresent.toString() + '\'' +
+            ' WHERE symbol=\'' + company + '\''); */
         }
         console.log("Updated " + company);
     })
@@ -77,7 +90,7 @@ app.get('/api/stockdata', function(req, response){
 
 updateDB();
 
-setInterval(updateDB, 120000);
+setInterval(updateDB, 900000);
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);

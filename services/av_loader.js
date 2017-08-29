@@ -82,12 +82,7 @@ function getVolatilityData(res) {
             parseFloat(res["Time Series (Daily)"][current]["3. low"]) + 
             parseFloat(res["Time Series (Daily)"][current]["4. close"])) / 3);
         daysCounted++;
-        try {
-            current = getNextDayBack(res, current);
-        }
-        catch(e) {
-            return data;
-        }
+        current = getNextDayBack(res, current);
     }
     data.stdVolatility = stdVolatility(past30Prices);
     data.day3Pivot = pivots.reduce((total, val) => total + val, 0) / 3;
@@ -145,7 +140,10 @@ function getNextDayBack(res, day) {
     let date = new Date((new Date(day)).getTime() - 86400000);
     let current = date.toISOString().substring(0, 10);
     let timeout = 0;
-    if (res["Time Series (Daily)"] == undefined) throw 'Fetch failure';
+    if (res["Time Series (Daily)"] == undefined) {
+        //console.log(res); DEBUG
+        throw 'Fetch failure';
+    }
     while (!res["Time Series (Daily)"].hasOwnProperty(current)) {
         if (timeout > 200) throw 'timeout';
         date = new Date(date.getTime() - 86400000);
@@ -187,9 +185,10 @@ exports.avCall = function(company, callback, onError) {
             var response;
             try {
                 response = formatRes(JSON.parse(body));
+                //console.log(response); //Debug ERROR: Returning 0's on weekend
             }
             catch (e) {
-                console.log("Incomplete JSON; Parse failed");
+                console.log("Parse failed");
                 return;
             }
             //console.log(response);
@@ -199,41 +198,23 @@ exports.avCall = function(company, callback, onError) {
 }
 
 function formatRes(res) {
-    try{
-        let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
-        let {day10Vol, day90Vol} = getVolumeAvgs(res);
-        let {past30Ranges, stdVolatility, day3Pivot, pivot} = getVolatilityData(res);
-        return {
-            currentPrice: getCurrentPrice(res),
-            mavg50: mavg_50,
-            mavg100: mavg_100,
-            mavg200: mavg_200,
-            tenDayVol: day10Vol,
-            threeMVol: day90Vol,
-            percentChange5D: fiveDayPercentChange(res),
-            past30Ranges: past30Ranges,
-            stdVolatility: stdVolatility,
-            day3Pivot: day3Pivot,
-            pivot: pivot,
-            gappresent: detectGap(res)
-        }
+    let {mavg_50, mavg_100, mavg_200} = getMovingAverages(res);
+    let {day10Vol, day90Vol} = getVolumeAvgs(res);
+    let {past30Ranges, stdVolatility, day3Pivot, pivot} = getVolatilityData(res);
+    return {
+        currentPrice: getCurrentPrice(res),
+        mavg50: mavg_50,
+        mavg100: mavg_100,
+        mavg200: mavg_200,
+        tenDayVol: day10Vol,
+        threeMVol: day90Vol,
+        percentChange5D: fiveDayPercentChange(res),
+        past30Ranges: past30Ranges,
+        stdVolatility: stdVolatility,
+        day3Pivot: day3Pivot,
+        pivot: pivot,
+        gappresent: detectGap(res)
     }
-    catch (err) {
-        return {
-            currentPrice: 0,
-            mavg50: 0,
-            mavg100: 0,
-            mavg200: 0,
-            tenDayVol: 0,
-            threeMVol: 0,
-            percentChange5D: 0,
-            past30Ranges: 0,
-            stdVolatility: 0,
-            day3Pivot: 0,
-            pivot: 0,
-            gappresent: 0
-        }
-    } 
     
 }
 
