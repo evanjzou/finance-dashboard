@@ -9,8 +9,6 @@ This web application is currently hosted on Heroku:
 
 [mathersonfinancials.herokuapp.com](https://mathersonfinancials.herokuapp.com)
 
-TEMPORARY NOTE: The website application is currently down due to a bug. We will update it as soon as possible.
-
 ### Local Development
 
 To test the on a local development server, run  
