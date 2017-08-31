@@ -14,7 +14,6 @@ export const companies = [
     'ADI',
     'ANSS',
     'AAPL',
-    'AMAT',
     'ADSK',
     'ADP',
     'AVGO',
