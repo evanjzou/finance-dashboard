@@ -4,7 +4,7 @@ import { QuoteResult } from '../service/finance_service';
 import { CompanyData } from '../service/historical_data_factory';
 import { companies, financeCompanies, healthCareCompanies, 
     consumerDiscretionary, energy, industrials,  materials, 
-    utilities, realEstate, consumerStaples, teleComm} from '../constants';
+    utilities, realEstate, consumerStaples, teleComm, favorites} from '../constants';
 import { allCompanies } from '../constants';
 
 @Component({
@@ -30,6 +30,7 @@ export class DataTable implements OnInit {
     realDispData = {};
     conSDispData = {};
     teleComDispData = {};
+    favoritesDispData = {};
 
     //ActiveSector
     activeSector = "TECH";
@@ -199,6 +200,19 @@ export class DataTable implements OnInit {
         for (let i = 0; i < teleComm.length; i++) {
             this.teleComDispData[teleComm[i]] = {
                 symbol: teleComm[i],
+                mavg_50 : 0,
+                mavg_100 : 0,
+                mavg_200 : 0,
+                month3Volume : 0,
+                day10Volume : 0,
+                percentChange5Day : 0,
+                currentPrice: 0,
+                pivotavg: 0
+            } 
+        } 
+        for (let i = 0; i < favorites.length; i++) {
+            this.favoritesDispData[favorites[i]] = {
+                symbol: favorites[i],
                 mavg_50 : 0,
                 mavg_100 : 0,
                 mavg_200 : 0,
@@ -391,7 +405,24 @@ export class DataTable implements OnInit {
                                 res[j].ranges[res[j].ranges.length - 2]
                         }
                     }
-                }
+
+                    if (favorites.indexOf(res[j].symbol) > -1){
+                        this.favoritesDispData[res[j].symbol] = {
+                            symbol: res[j].symbol,
+                            mavg_50 : res[j].mavg50,
+                            mavg_100 : res[j].mavg100,
+                            mavg_200 : res[j].mavg200,
+                            month3Volume : res[j].month3vol,
+                            day10Volume : res[j].day10vol,
+                            percentChange5Day : res[j].percentchange5d,
+                            currentPrice: res[j].current_price,
+                            pivotavg : res[j].pivotavg,
+                            gappresent : res[j].gappresent,
+                            rangeExp : res[j].ranges[res[j].ranges.length - 1] > 
+                                res[j].ranges[res[j].ranges.length - 2]
+                        }
+                    }
+                }    
                 //alert(this.dispData['ATVI'].mavg_50);
                 //alert(this.financeDispData['AMG'].mavg_50);
             }).bind(this),
