@@ -12,6 +12,7 @@
     <option value="REAL">Real Estate</option>
     <option value="CONS">Consumer Staples</option>
     <option value="TELC">Telecommunications</option>
+    <option value="FAV">Favorites</option>
 </select>
 
 <br />
@@ -28,3 +29,4 @@
 <sector-table [dispData]="realDispData" *ngIf="activeSector=='REAL'"></sector-table>
 <sector-table [dispData]="conSDispData" *ngIf="activeSector=='CONS'"></sector-table>
 <sector-table [dispData]="teleComDispData" *ngIf="activeSector=='TELC'"></sector-table>
+<sector-table [dispData]="favoritesDispData" *ngIf="activeSector=='FAV'"></sector-table>
