@@ -606,7 +606,12 @@ export const teleComm = [
 ]
 
 export const favorites = [
-
+    'NVDA',
+    'AAPL',
+    'MSFT',
+    'ORCL',
+    'NRG',
+    'PYPL'
 ]
 
 export const allCompanies = companies.concat(financeCompanies, 
