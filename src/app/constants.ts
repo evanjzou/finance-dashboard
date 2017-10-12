@@ -605,6 +605,10 @@ export const teleComm = [
     'VZ'
 ]
 
+export const favorites = [
+
+]
+
 export const allCompanies = companies.concat(financeCompanies, 
     healthCareCompanies, consumerDiscretionary, energy, 
     industrials, materials, utilities, realEstate, 
