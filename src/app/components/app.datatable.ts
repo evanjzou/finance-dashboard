@@ -33,7 +33,7 @@ export class DataTable implements OnInit {
     favoritesDispData = {};
 
     //ActiveSector
-    activeSector = "TECH";
+    activeSector = "FAV";
 
     //Unused
     indices = {};
