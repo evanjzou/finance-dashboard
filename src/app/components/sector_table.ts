@@ -38,6 +38,8 @@ export class SectorTable  implements OnInit{
     }
 
     private compareMarketCap(comp1 : string, comp2 : string) : number {
-        return parseFloat((<any>data)[comp2]) - parseFloat((<any>data)[comp1]);
+        var c2 = (<any>data)[comp2] != null? (<any>data)[comp2] : -1;
+        var c1 = (<any>data)[comp1] != null? (<any>data)[comp1] : -1;
+        return parseFloat(c2) - parseFloat(c1);
     }
 }

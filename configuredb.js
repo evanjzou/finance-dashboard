@@ -32,7 +32,7 @@ client.query('CREATE TABLE stockdata (symbol varchar(6), current_price real, '+
     'percentChange5D real, percentOfIndex real, sector varchar(4), ranges real[30], gapPresent boolean, ' + 
     'pivotAvg real, stdVolatility real)', 
         (err, res) => {
-            if(err) console.log(err);
+            if(err) 5;//console.log(err);
             else {
                 for (let i = 0; i < constants.allCompanies.length; i++) {
                     //console.log("Company is " + constants.allCompanies[i]);
@@ -46,7 +46,7 @@ client.query('CREATE TABLE stockdata (symbol varchar(6), current_price real, '+
                     '\', ARRAY[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], FALSE, 0, 0)',
                     (err, res) => {
                         if (err) {
-                            console.log(err);
+                            5;//console.log(err);
                             //console.log("error occured");
                         }
                     });
