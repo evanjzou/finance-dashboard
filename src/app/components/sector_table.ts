@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as data from '../marketcaps.json';
 
 @Component({
     selector: 'sector-table',
@@ -10,7 +11,9 @@ export class SectorTable  implements OnInit{
     keys;
 
     ngOnInit() {
-        this.keys = Object.keys(this.dispData);
+        this.keys = Object.keys(this.dispData).sort(this.compareMarketCap);
+        //const word = (<any>data)["GILD"];
+        //alert(word);
     }
 
     /**
@@ -32,5 +35,11 @@ export class SectorTable  implements OnInit{
     public volCompare(company : string) : boolean {
         if (this.dispData[company].day10Volume === undefined) return false;
         return this.dispData[company].day10Volume > this.dispData[company].month3Volume
+    }
+
+    private compareMarketCap(comp1 : string, comp2 : string) : number {
+        var c2 = (<any>data)[comp2] != null? (<any>data)[comp2] : -1;
+        var c1 = (<any>data)[comp1] != null? (<any>data)[comp1] : -1;
+        return parseFloat(c2) - parseFloat(c1);
     }
 }
