@@ -69,6 +69,16 @@ function updateDB() {
     }
 }
 
+/**
+ * Updates only the favorites
+ */
+function updateFavorites() {
+    console.log("Updating Favorites...");
+    for (let i= 0; i < constants.favorites.length; i++) {
+        av_loader.avCall(constants.favorites[i], updateEntry, updateFailureHandle);
+    }
+}
+
 //Setup
 app.get('/api/sanitycheck', function(req, res) {
     res.json({
@@ -88,9 +98,11 @@ app.get('/api/stockdata', function(req, response){
     });
 });
 
+updateFavorites();
 updateDB();
 
-setInterval(updateDB, 900000);
+setInterval(updateDB, 3600000);
+setInterval(updateFavorites, 300000)
 
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);
