@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as data from '../marketcaps.json';
+import * as constants from '../constants'
 
 @Component({
     selector: 'sector-table',
@@ -11,7 +12,13 @@ export class SectorTable  implements OnInit{
     keys;
 
     ngOnInit() {
-        this.keys = Object.keys(this.dispData).sort(this.compareMarketCap);
+        //a better way to do this would be to pass in the sector name as an input,
+        //but I can't figure out where sectortable is being initialized
+        if(!this.matches(Object.keys(this.dispData), constants.favorites)){
+            this.keys = Object.keys(this.dispData).sort(this.compareMarketCap);
+        }else{
+            this.keys = Object.keys(this.dispData)
+        }
         //const word = (<any>data)["GILD"];
         //alert(word);
     }
@@ -41,5 +48,24 @@ export class SectorTable  implements OnInit{
         var c2 = (<any>data)[comp2] != null? (<any>data)[comp2] : -1;
         var c1 = (<any>data)[comp1] != null? (<any>data)[comp1] : -1;
         return parseFloat(c2) - parseFloat(c1);
+    }
+
+    /**
+     * checks if 2 arrays are equal
+     * @param l1 
+     * @param l2 
+     */
+    private matches(l1 : string[], l2 : string[]) : boolean{
+        for (var i=0; i<l1.length; i++){
+            if(!l2.includes(l1[i])){
+                return false
+            }
+        }
+        for (var i=0; i<l2.length; i++){
+            if(!l1.includes(l2[i])){
+                return false
+            }
+        }
+        return true
     }
 }
